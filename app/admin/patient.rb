@@ -11,6 +11,7 @@ ActiveAdmin.register Patient do
   filter :uscis_online_account_number
 
   index do
+    id_column
     column :last_name
     column :first_name
     column :date_of_birth
