@@ -30,7 +30,7 @@ ActiveAdmin.register MedicalRecord do
       patient_collection = Patient.order(:last_name).map{|p| ["#{p.id} - #{p.last_name}, #{p.first_name} #{p.middle_name} (DOB: #{p.date_of_birth})", p.id ]}
       f.input :patient_id, label: 'Patient', :as => :select, :collection => patient_collection
       f.input :date_of_service, :as => :datepicker
-      f.input :kind, :collection => ['Physical', 'Lab Work']
+      f.input :kind, :collection => ['Physical', 'Lab Work', 'Form', 'Other']
       f.input :scan, :label => 'Upload Scan', :hint => (image_tag(f.object.scan.url(:thumb)) if f.object.scan && !f.object.scan.url.blank?)
     end
     f.actions
