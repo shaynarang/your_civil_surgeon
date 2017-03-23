@@ -20,6 +20,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'mini_magick'
 gem 'fog-aws'
 gem 'carrierwave'
+gem 'formadmin'
 
 group :development, :test do
   gem 'byebug', platform: :mri

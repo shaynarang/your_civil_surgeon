@@ -116,6 +116,8 @@ GEM
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
+    formadmin (0.1.6)
+      activeadmin
     formatador (0.2.5)
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
@@ -261,6 +263,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   fog-aws
+  formadmin
   inherited_resources!
   jbuilder (~> 2.5)
   jquery-rails
