@@ -17,6 +17,7 @@ ActiveAdmin.register MedicalRecord do
     end
     column :date_of_service
     column :kind
+    actions
   end
 
   form do |f|
