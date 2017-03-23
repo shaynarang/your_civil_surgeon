@@ -17,6 +17,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'activeadmin', github: 'activeadmin'
+gem 'mini_magick'
+gem 'fog-aws'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'byebug', platform: :mri
