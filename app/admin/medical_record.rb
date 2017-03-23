@@ -25,7 +25,7 @@ ActiveAdmin.register MedicalRecord do
     f.inputs 'Medical Record Details' do
       patient_collection = Patient.order(:last_name).map{|p| ["#{p.id} - #{p.last_name}, #{p.first_name} #{p.middle_name} (#{p.date_of_birth})", p.id ]}
       f.input :patient_id, label: 'Patient', :as => :select, :collection => patient_collection
-      f.input :date_of_service
+      f.input :date_of_service, :as => :datepicker
       f.input :kind, :collection => ['Physical', 'Lab Work']
       f.input :scan
     end

@@ -27,7 +27,7 @@ ActiveAdmin.register Patient do
       f.input :last_name
       f.input :middle_name
       f.input :sex, :as => :select, :collection => ['Male', 'Female', 'Other', 'Unknown']
-      f.input :date_of_birth
+      f.input :date_of_birth, :as => :datepicker
       f.input :city_of_origin
       f.input :country_of_origin
       f.input :alien_registration_number
