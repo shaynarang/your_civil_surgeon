@@ -5,4 +5,5 @@ $(document).ready ->
     changeYear: true
     changeMonth: true
     yearRange: "1900:(new Date).getFullYear()"
+    format: 'yyyy-mm-dd'
   return
