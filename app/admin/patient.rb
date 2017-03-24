@@ -10,7 +10,7 @@ ActiveAdmin.register Patient do
   filter :alien_registration_number
   filter :uscis_online_account_number
 
-  index do
+  index :download_links => false do
     id_column
     column :last_name
     column :first_name

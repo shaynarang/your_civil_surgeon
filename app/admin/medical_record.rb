@@ -10,7 +10,7 @@ ActiveAdmin.register MedicalRecord do
   filter :kind, :as => :select, :collection => ['Physical', 'Lab Work']
   filter :date_of_service
 
-  index do
+  index :download_links => false do
     column :patient do |medical_record|
       p = medical_record.patient
       "#{p.id} - #{p.last_name}, #{p.first_name} (DOB: #{p.date_of_birth})"

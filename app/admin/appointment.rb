@@ -10,7 +10,7 @@ ActiveAdmin.register Appointment do
     end
   end
 
-  index do
+  index :download_links => false do
     div id: 'calendar'
   end
 
