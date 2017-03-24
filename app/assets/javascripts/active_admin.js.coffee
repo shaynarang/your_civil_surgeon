@@ -8,9 +8,14 @@ $(document).ready ->
     header: {
               left: 'prev,next today',
               center: 'title',
-              right: 'month,basicWeek,basicDay'
+              right: 'month,listWeek,listDay'
             }
     events: '/appointments.json'
+
+  $('.fc-today-button').html 'Back To Today'
+  $('.fc-month-button').html 'Month'
+  $('.fc-listWeek-button').html 'Week'
+  $('.fc-listDay-button').html 'Day'
 
   $('.datepicker').datepicker
     changeYear: true
