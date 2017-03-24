@@ -23,4 +23,9 @@ $(document).ready ->
     yearRange: "1900:(new Date).getFullYear()"
     dateFormat: 'yy-mm-dd'
 
-  $('.timepicker').timepicker()
+  $('.timepicker').timepicker
+    minTime: '9:00am',
+    maxTime: '4:00pm',
+    disableTimeRanges: [
+      ['12pm', '1pm']
+    ]
