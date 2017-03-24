@@ -3,12 +3,17 @@ ActiveAdmin.register Appointment do
 
   config.filters = false
 
+  action_item :only => [:edit] do
+    link_to 'Delete Appointment', admin_appointment_path, method: :delete, data: {confirm: "Are you sure?"}
+  end
+
   index do
     div id: 'calendar'
   end
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
+    br
     f.inputs 'Appointment Details' do
       patient_collection = Patient.order(:last_name).map{|p| ["#{p.id} - #{p.last_name}, #{p.first_name} #{p.middle_name} (DOB: #{p.date_of_birth})", p.id ]}
       f.input :patient_id, label: 'Patient', :as => :select, :collection => patient_collection

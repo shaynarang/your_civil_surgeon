@@ -22,7 +22,7 @@ ActiveAdmin.register Patient do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
-
+    br
     f.inputs 'Patient Demographics' do
       f.input :first_name
       f.input :last_name

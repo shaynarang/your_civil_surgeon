@@ -29,3 +29,24 @@ $(document).ready ->
     disableTimeRanges: [
       ['12pm', '1pm']
     ]
+
+  $('.fc-day').dblclick ->
+    date = $(this).data('date')
+    window.location.href = '/admin/appointments/new?date=' + date
+
+  # the following script only applies to the new appointments page
+
+  # obtain the url
+  split_path = window.location.pathname.split('/')
+
+  # stop if the current page is not an appointments page
+  return if split_path.indexOf('appointments') < -1
+
+  # stop if the current page is not a new page
+  return if split_path.indexOf('new') < -1
+
+  searchParams = new URLSearchParams(window.location.search)
+  searchParams.has('date')
+  date = searchParams.get('date')
+  if date
+    $('#appointment_date').val date
