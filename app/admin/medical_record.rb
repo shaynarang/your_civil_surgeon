@@ -2,13 +2,10 @@ ActiveAdmin.register MedicalRecord do
 
   menu false
 
+  config.clear_action_items!
+
   permit_params :kind, :scan, :patient_id, :date_of_service
 
-  filter :patient,
-    collection:
-      Patient.joins(:medical_records)
-        .order(:last_name)
-        .map{|p| ["#{p.id} - #{p.last_name}, #{p.first_name} #{p.middle_name} (DOB: #{p.date_of_birth})", p.id ]}
   filter :kind, :as => :select, :collection => ['Physical', 'Lab Work']
   filter :date_of_service
 
