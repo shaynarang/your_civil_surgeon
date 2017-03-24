@@ -54,5 +54,11 @@ ActiveAdmin.register MedicalRecord do
 
   controller do
     actions :all, :except => [:destroy]
+
+    def scoped_collection
+      if params[:patient_id]
+        MedicalRecord.where(patient_id: params[:patient_id])
+      end
+    end
   end
 end
