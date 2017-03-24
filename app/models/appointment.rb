@@ -10,4 +10,9 @@ class Appointment < ApplicationRecord
   def date_time
     (date.to_s + " " + time.to_s).to_datetime
   end
+
+  def time_range
+    end_time = read_attribute(:time) + 30.minutes
+    [time, end_time.strftime('%I:%M%p')]
+  end
 end
