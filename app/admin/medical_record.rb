@@ -1,5 +1,7 @@
 ActiveAdmin.register MedicalRecord do
 
+  menu false
+
   permit_params :kind, :scan, :patient_id, :date_of_service
 
   filter :patient,
