@@ -1,19 +1,10 @@
 ActiveAdmin.register Appointment do
   permit_params :date, :time, :patient_id, :notes, :status
 
+  config.filters = false
+
   index do
-    selectable_column
-    column :date
-    column :time do |appointment|
-      appointment.friendly_time
-    end
-    column :patient do |appointment|
-      p = appointment.patient
-      link_to "NAME: #{p.last_name}, #{p.first_name} #{p.middle_name}<br>DOB: #{p.date_of_birth}".html_safe, admin_patient_path(p)
-    end
-    column :notes
-    column :status
-    actions
+    div id: 'calendar'
   end
 
   form do |f|
