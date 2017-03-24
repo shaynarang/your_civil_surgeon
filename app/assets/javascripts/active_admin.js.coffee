@@ -1,24 +1,8 @@
 #= require active_admin/base
 #= require moment
 #= require fullcalendar
-#= require jquery.timepicker.min.js
 
-$(document).ready ->
-
-  # datepicker config
-  $('.datepicker').datepicker
-    changeYear: true
-    changeMonth: true
-    yearRange: "1900:(new Date).getFullYear()"
-    dateFormat: 'yy-mm-dd'
-
-  # timepicker config
-  $('.timepicker').timepicker
-    minTime: '9:00am',
-    maxTime: '4:00pm',
-    disableTimeRanges: [
-      ['12pm', '1pm']
-    ]
+$ ->
 
   # fullcalendar config
   $('#calendar').fullCalendar
@@ -29,7 +13,7 @@ $(document).ready ->
             }
     events: '/appointments.json'
 
-  # full calendar link names
+  # replace full calendar link names
   $('.fc-today-button').html 'Back To Today'
   $('.fc-month-button').html 'Month'
   $('.fc-listWeek-button').html 'Week'
@@ -40,6 +24,7 @@ $(document).ready ->
     date = $(this).data('date')
     window.location.href = '/admin/appointments/new?date=' + date
 
+  # prepopulate new appointment date if necessary
   # obtain the url
   split_path = window.location.pathname.split('/')
   # stop if the current page is not an appointments page
