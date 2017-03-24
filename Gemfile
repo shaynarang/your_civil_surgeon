@@ -21,6 +21,8 @@ gem 'mini_magick'
 gem 'fog-aws'
 gem 'carrierwave'
 gem 'formadmin'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri

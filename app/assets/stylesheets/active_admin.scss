@@ -10,6 +10,9 @@
 // Responsive Theme
 @import 'formadmin/formadmin';
 
+// Calendar Library
+@import 'fullcalendar'
+
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
