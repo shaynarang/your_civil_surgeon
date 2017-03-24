@@ -11,7 +11,10 @@
 @import 'formadmin/formadmin';
 
 // Calendar Library
-@import 'fullcalendar'
+@import 'fullcalendar';
+
+// Timepicker
+@import 'jquery.timepicker.css';
 
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
