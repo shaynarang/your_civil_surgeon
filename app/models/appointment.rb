@@ -1,8 +1,10 @@
 class Appointment < ApplicationRecord
   belongs_to :patient
 
+  validates_presence_of :date, :time, :patient_id
+
   def time
-    super.strftime('%I:%M%p') unless new_record?
+    read_attribute(:time) ? read_attribute(:time).strftime('%I:%M%p') : nil
   end
 
   def date_time
