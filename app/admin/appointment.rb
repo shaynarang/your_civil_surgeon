@@ -4,7 +4,10 @@ ActiveAdmin.register Appointment do
   config.filters = false
 
   action_item :only => [:edit] do
-    link_to 'Delete Appointment', admin_appointment_path, method: :delete, data: {confirm: "Are you sure?"}
+    unless appointment.status == 'Cancelled'
+      confirmation_message = 'Are you sure you would like to cancel this appointment?'
+      link_to 'Cancel Appointment', cancel_appointment_path, data: { confirm: confirmation_message }
+    end
   end
 
   index do
@@ -20,6 +23,7 @@ ActiveAdmin.register Appointment do
       f.input :date, :as => :datepicker
       f.input :time, :as => :string, :input_html => { :class => 'timepicker' }
       f.input :notes
+      f.input :status, :as => :select, :collection => ['Cancelled', 'Confirmed', 'Unconfirmed'], :include_blank => true
     end
     f.actions
   end

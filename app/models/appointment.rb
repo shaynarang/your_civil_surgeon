@@ -3,6 +3,11 @@ class Appointment < ApplicationRecord
 
   validates_presence_of :date, :time, :patient_id
 
+  def self.on_the_books
+    statuses = ['Confirmed', 'Unconfirmed', nil]
+    where(status: statuses)
+  end
+
   def time
     read_attribute(:time) ? read_attribute(:time).strftime('%I:%M%p') : nil
   end
