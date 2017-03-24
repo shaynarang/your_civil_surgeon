@@ -52,4 +52,8 @@ ActiveAdmin.register MedicalRecord do
       end
     end
   end
+
+  controller do
+    actions :all, :except => [:destroy]
+  end
 end
