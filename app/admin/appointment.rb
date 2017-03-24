@@ -36,9 +36,7 @@ ActiveAdmin.register Appointment do
           link_to "#{p.id} - #{p.last_name}, #{p.first_name} (DOB: #{p.date_of_birth})", admin_patient_path(p)
         end
         row :date
-        row :time do
-          appointment.friendly_time
-        end
+        row :time
         row :notes
       end
     end

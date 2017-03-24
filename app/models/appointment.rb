@@ -1,7 +1,11 @@
 class Appointment < ApplicationRecord
   belongs_to :patient
 
-  def friendly_time
-    time.strftime('%I:%M%p') if time
+  def time
+    super.strftime('%I:%M%p') unless new_record?
+  end
+
+  def date_time
+    (date.to_s + " " + time.to_s).to_datetime
   end
 end
