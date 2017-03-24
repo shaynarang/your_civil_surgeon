@@ -10,6 +10,12 @@ ActiveAdmin.register Patient do
   filter :alien_registration_number
   filter :uscis_online_account_number
 
+  action_item :only => [:edit, :show] do
+    if patient.medical_records.any?
+      link_to 'Medical Records', admin_medical_records_path(patient_id: patient.id)
+    end
+  end
+
   index :download_links => false do
     id_column
     column :last_name
