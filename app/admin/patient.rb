@@ -11,9 +11,7 @@ ActiveAdmin.register Patient do
   filter :uscis_online_account_number
 
   action_item :only => [:edit, :show] do
-    if patient.medical_records.any?
-      link_to 'Medical Records', admin_medical_records_path(patient_id: patient.id)
-    end
+    link_to 'Medical Records', admin_medical_records_path(patient_id: patient.id)
   end
 
   index :download_links => false do
@@ -82,7 +80,7 @@ ActiveAdmin.register Patient do
       end
     end
 
-    panel 'Patient Demographics' do
+    panel 'Patient Contact' do
       attributes_table_for patient do
         row :street1
         row :street2
