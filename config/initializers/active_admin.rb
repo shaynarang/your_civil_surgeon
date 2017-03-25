@@ -192,7 +192,7 @@ ActiveAdmin.setup do |config|
   #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
   #
   # To load a javascript file:
-  # config.register_javascript 'date_and_time_pickers'
+  config.register_javascript 'appointments'
 
   # == CSV options
   #
