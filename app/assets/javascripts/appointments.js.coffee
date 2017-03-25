@@ -50,7 +50,7 @@ $(document).ready ->
   $('.fc-listDay-button').html 'Day'
 
   # direct user to new appointments upon calendar day click
-  $(document).on 'dblclick', '.fc-day', ->
+  $(document).on 'click', '.fc-day', ->
     date = $(this).data('date')
     window.location.href = '/admin/appointments/new?date=' + date
 
