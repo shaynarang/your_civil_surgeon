@@ -10,6 +10,9 @@
 // Responsive Theme
 @import 'formadmin/formadmin';
 
+// Select2 for multiple input selection
+@import "select2";
+
 // Calendar Library
 @import 'fullcalendar';
 
@@ -32,4 +35,8 @@
 
 td.fc-day:hover {
   cursor: pointer;
+}
+
+.select2 {
+  margin-left: 20px;
 }
