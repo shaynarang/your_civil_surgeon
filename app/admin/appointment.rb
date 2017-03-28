@@ -3,12 +3,18 @@ ActiveAdmin.register Appointment do
 
   config.filters = false
 
-  actions :all, :except => :destroy
+  config.clear_action_items!
 
   action_item :only => [:edit, :show] do
     unless appointment.status == 'Cancelled'
       confirmation_message = 'Are you sure you would like to cancel this appointment?'
       link_to 'Cancel Appointment', cancel_admin_appointment_path, data: { confirm: confirmation_message }
+    end
+  end
+
+  action_item :only => [:index] do
+    if params[:patient_id]
+      link_to 'Exit Patient', admin_appointments_path
     end
   end
 
