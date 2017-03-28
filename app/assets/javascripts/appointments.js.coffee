@@ -162,3 +162,9 @@ $(document).ready ->
     date = $(this).val()
     # get available times for date
     getAppointments(date)
+
+  # retain calendar position via date parameter
+  searchParams = new URLSearchParams(window.location.search)
+  if searchParams.has('date')
+    date = searchParams.get('date')
+    $('#calendar').fullCalendar('gotoDate', date)
