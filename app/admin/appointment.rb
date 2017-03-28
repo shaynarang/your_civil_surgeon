@@ -56,6 +56,17 @@ ActiveAdmin.register Appointment do
   end
 
   controller do
+    def index
+      if params[:patient_id]
+        patient = Patient.find(params[:patient_id])
+        patient_name = "#{patient.first_name} #{patient.last_name}"
+        patient_dob = patient.date_of_birth
+        link = "<b><a href='/admin/patients/#{patient.id}'>#{patient_name}</a></b>"
+        text = "Scheduling Appointment for #{link} (#{patient_dob})"
+        @page_title = text.html_safe
+      end
+    end
+
     def new
       use_patient_page_title(params[:patient_id])
       super
@@ -90,7 +101,9 @@ ActiveAdmin.register Appointment do
       patient = Patient.find(patient_id)
       patient_name = "#{patient.first_name} #{patient.last_name}"
       patient_dob = patient.date_of_birth
-      @page_title = "Appointment for #{patient_name} (DOB: #{patient_dob})"
+      link = "<b><a href='/admin/patients/#{patient.id}'>#{patient_name}</a></b>"
+      title = "Appointment Details for #{link} (#{patient_dob})"
+      @page_title = title.html_safe
     end
 
     def redirect_to_index notice
