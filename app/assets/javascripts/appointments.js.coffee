@@ -8,7 +8,7 @@ $(document).ready ->
   split_path = window.location.pathname.split('/')
 
   # stop if the current page is not an appointments page
-  return if split_path.indexOf('appointments') < -1
+  return if split_path.indexOf('appointments') == -1
 
   # datepicker config
   $('.datepicker').datepicker

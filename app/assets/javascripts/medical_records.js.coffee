@@ -4,9 +4,9 @@ $(document).ready ->
   split_path = window.location.pathname.split('/')
 
   # stop if the current page is not a medical records page
-  return if split_path.indexOf('medical_records') < -1
+  return if split_path.indexOf('medical_records') == -1
 
-  # if the current page is the new appointment page
+  # if the current page is the new medical record page
   if split_path.indexOf('new') > -1 || split_path.indexOf('edit') > -1 
     # grab the id of the selected patient
     patient_id = $('#medical_record_patient_id').val()
