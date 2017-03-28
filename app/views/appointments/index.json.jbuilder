@@ -4,5 +4,5 @@ json.array!(@appointments) do |appointment|
   json.description appointment.notes
   json.start appointment.date_time
   json.time_range appointment.time_range
-  json.url edit_admin_appointment_url(appointment, format: :html)
+  json.url edit_admin_appointment_url(appointment)
 end
