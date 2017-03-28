@@ -22,7 +22,7 @@ $(document).ready ->
     disable_ranges = disable_ranges || []
 
     # block off lunch hour
-    disable_ranges.push ['12pm', '1pm']
+    disable_ranges.push ['12:00pm', '1:00pm']
 
     # timepicker config
     $('.timepicker').timepicker
@@ -42,6 +42,12 @@ $(document).ready ->
               right: 'month,listWeek,listDay'
             }
     events: '/appointments.json'
+    loading: (bool) ->
+      if bool
+        console.log('Loading calendar...')
+      else
+        console.log('Great success.')
+        setUpCalendar()
 
   # replace full calendar link names
   $('.fc-today-button').html 'Back To Today'
@@ -49,20 +55,56 @@ $(document).ready ->
   $('.fc-listWeek-button').html 'Week'
   $('.fc-listDay-button').html 'Day'
 
-  # direct user to new appointments upon calendar day click
-  $(document).on 'click', '.fc-day', ->
-    date = $(this).data('date')
-    window.location.href = '/admin/appointments/new?date=' + date
+  disableAppointmentEdit = ->
+    searchParams = new URLSearchParams(window.location.search)
+    if searchParams.has('patient_id')
+      # obtain patient_id
+      urlPatientId = searchParams.get('patient_id')
 
-  # http://stackoverflow.com/questions/17446466/add-15-minutes-to-string-in-javascript
-  addMinutes = (time, minsToAdd) ->
+    $.each $('a.fc-day-grid-event'), (_index, value) ->
+      editLink = new URL($(this).attr('href'))
+      editLinkParams = new URLSearchParams(editLink.search.slice(1));
+      editPatientId = editLinkParams.get('patient_id')
 
-    D = (J) ->
-      (if J < 10 then '0' else '') + J
+      if urlPatientId != editPatientId
+        $(this).attr('href', '').css(
+          {
+            'cursor': 'pointer',
+            'pointer-events' : 'none'
+          }
+        )
 
-    piece = time.split(':')
-    mins = piece[0] * 60 + +piece[1] + +minsToAdd
-    D(mins % 24 * 60 / 60 | 0) + ':' + D(mins % 60)
+  directToNewAppointment = ->
+    # direct user to new appointments upon calendar day click
+    $(document).on 'click', '.fc-day', ->
+
+      date = $(this).data('date')
+      date_query = '?date=' + date
+
+      link = '/admin/appointments/new' + date_query
+
+      searchParams = new URLSearchParams(window.location.search)
+      if searchParams.has('patient_id')
+        # obtain patient_id
+        patient_id = searchParams.get('patient_id')
+        patient_query = '&patient_id=' + patient_id
+
+      if patient_query
+        window.location.href = link + patient_query
+      else
+        window.location.href = link
+
+  setUpCalendar = ->
+    # check search params
+    searchParams = new URLSearchParams(window.location.search)
+    # if patient_id parameter is available
+    if searchParams.has('patient_id')
+      # disable edit for other patients
+      disableAppointmentEdit()
+      # add cursor for new appointments
+      $('td.fc-day').css('cursor', 'pointer')
+      # direct user to new appointments upon calendar day click
+      directToNewAppointment()
 
   # obtain unavailable times for date
   getUnavailableTimes = (appointments) ->
@@ -90,6 +132,7 @@ $(document).ready ->
   if split_path.indexOf('new') > -1
     # grab the url parameters
     searchParams = new URLSearchParams(window.location.search)
+
     if searchParams.has('date')
       # obtain date value
       date = searchParams.get('date')
@@ -97,3 +140,29 @@ $(document).ready ->
       $('#appointment_date').val(date)
       # disable appropriate times
       getAppointments(date)
+
+    if searchParams.has('patient_id')
+      # obtain patient_id value
+      patient_id = searchParams.get('patient_id')
+      # prepopulate patient_id field
+      $('#appointment_patient_id').val(patient_id).trigger('change')
+      # $('option[value=' + patient_id + ']', '#appointment_patient_id').attr('selected', true)
+
+  $(document).on 'change', '#appointment_date', ->
+    # reset appointment times
+    $('#appointment_time').val('')
+    # grab selected date
+    date = $(this).val()
+    # get available times for date
+    getAppointments(date)
+
+  if split_path.indexOf('new') > -1 || split_path.indexOf('edit') > -1
+    # grab the id of the selected patient
+    patient_id = $('#appointment_patient_id').val()
+    # add patient_id parameter to cancel button
+    $('li.cancel a').attr('href', '/admin/appointments?patient_id=' + patient_id)
+
+    # grab selected date
+    date = $(this).val()
+    # get available times for date
+    getAppointments(date)
