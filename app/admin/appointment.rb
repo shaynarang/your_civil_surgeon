@@ -3,10 +3,12 @@ ActiveAdmin.register Appointment do
 
   config.filters = false
 
-  action_item :only => [:edit] do
+  actions :all, :except => :destroy
+
+  action_item :only => [:edit, :show] do
     unless appointment.status == 'Cancelled'
       confirmation_message = 'Are you sure you would like to cancel this appointment?'
-      link_to 'Cancel Appointment', cancel_appointment_path, data: { confirm: confirmation_message }
+      link_to 'Cancel Appointment', cancel_admin_appointment_path, data: { confirm: confirmation_message }
     end
   end
 
@@ -38,6 +40,53 @@ ActiveAdmin.register Appointment do
         row :date
         row :time
         row :notes
+      end
+    end
+  end
+
+  member_action :cancel do
+    resource.update_attributes(status: 'Cancelled')
+    notice = 'Appointment has been cancelled'
+    return redirect_to_index(notice)
+  end
+
+  controller do
+    def new
+      patient = Patient.find(params[:patient_id])
+      @page_title = "Appointment for #{patient.first_name} #{patient.last_name}"
+      super
+    end
+
+    def create
+      super do |format|
+        if resource.valid?
+          notice = 'Appointment successfully created'
+          return redirect_to_index(notice)
+        end
+      end
+    end
+
+    def edit
+      patient = Patient.find(resource.patient_id)
+      @page_title = "Appointment for #{patient.first_name} #{patient.last_name}"
+      super
+    end
+
+    def update
+      super do |format|
+        if resource.valid?
+          notice = 'Appointment successfully updated'
+          return redirect_to_index(notice)
+        end
+      end
+    end
+
+    private
+
+    def redirect_to_index notice
+      if resource.valid?
+        params = { patient_id: resource.patient_id, date: resource.date }
+        return redirect_to collection_url(params), notice: notice
       end
     end
   end

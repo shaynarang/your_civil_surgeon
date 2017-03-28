@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   def index
+    # this is a json endpoint
     return redirect_to '/' unless current_admin
 
     if params[:date]
@@ -9,12 +10,5 @@ class AppointmentsController < ApplicationController
     end
 
     render :index
-  end
-
-  def cancel
-    appointment = Appointment.find(params[:id])
-    appointment.update_attributes(status: 'Cancelled')
-    flash[:notice] = 'Appointment has been cancelled'
-    redirect_to admin_appointments_path
   end
 end
