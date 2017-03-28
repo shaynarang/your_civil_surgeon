@@ -20,8 +20,7 @@ ActiveAdmin.register Appointment do
     f.semantic_errors *f.object.errors.keys
     br
     f.inputs 'Appointment Details' do
-      patient_collection = Patient.order(:last_name).map{|p| ["#{p.id} - #{p.last_name}, #{p.first_name} #{p.middle_name} (DOB: #{p.date_of_birth})", p.id ]}
-      f.input :patient_id, label: 'Patient', :as => :select, :collection => patient_collection
+      f.input :patient_id, label: 'Patient', :as => :hidden, :input_html => { :readonly => true }
       f.input :date, :as => :datepicker
       f.input :time, :as => :string, :input_html => { :class => 'timepicker' }
       f.input :notes
