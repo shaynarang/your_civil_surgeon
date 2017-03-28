@@ -55,18 +55,13 @@ $(document).ready ->
   $('.fc-listWeek-button').html 'Week'
   $('.fc-listDay-button').html 'Day'
 
-  disableAppointmentEdit = ->
-    searchParams = new URLSearchParams(window.location.search)
-    if searchParams.has('patient_id')
-      # obtain patient_id
-      urlPatientId = searchParams.get('patient_id')
-
+  disableAppointmentEdit = (patient_id) ->
     $.each $('a.fc-day-grid-event'), (_index, value) ->
       editLink = new URL($(this).attr('href'))
       editLinkParams = new URLSearchParams(editLink.search.slice(1));
       editPatientId = editLinkParams.get('patient_id')
 
-      if urlPatientId != editPatientId
+      if patient_id != editPatientId
         $(this).attr('href', '').css(
           {
             'cursor': 'pointer',
@@ -99,8 +94,9 @@ $(document).ready ->
     searchParams = new URLSearchParams(window.location.search)
     # if patient_id parameter is available
     if searchParams.has('patient_id')
+      patient_id = searchParams.get('patient_id')
       # disable edit for other patients
-      disableAppointmentEdit()
+      disableAppointmentEdit(patient_id)
       # add cursor for new appointments
       $('td.fc-day').css('cursor', 'pointer')
       # direct user to new appointments upon calendar day click
