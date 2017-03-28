@@ -51,8 +51,7 @@ ActiveAdmin.register Appointment do
 
   controller do
     def new
-      patient = Patient.find(params[:patient_id])
-      @page_title = "Appointment for #{patient.first_name} #{patient.last_name}"
+      use_patient_page_title(params[:patient_id])
       super
     end
 
@@ -66,8 +65,7 @@ ActiveAdmin.register Appointment do
     end
 
     def edit
-      patient = Patient.find(resource.patient_id)
-      @page_title = "Appointment for #{patient.first_name} #{patient.last_name}"
+      use_patient_page_title(resource.patient_id)
       super
     end
 
@@ -81,6 +79,13 @@ ActiveAdmin.register Appointment do
     end
 
     private
+
+    def use_patient_page_title patient_id
+      patient = Patient.find(patient_id)
+      patient_name = "#{patient.first_name} #{patient.last_name}"
+      patient_dob = patient.date_of_birth
+      @page_title = "Appointment for #{patient_name} (DOB: #{patient_dob})"
+    end
 
     def redirect_to_index notice
       if resource.valid?
