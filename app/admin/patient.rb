@@ -2,16 +2,20 @@ ActiveAdmin.register Patient do
 
   permit_params :first_name, :last_name, :middle_name, :street1, :street2, :city, :state, :zip, :sex, :date_of_birth, :city_of_origin, :country_of_origin, :alien_registration_number, :uscis_online_account_number, :email, :primary_phone, :alternate_phone, :additional_notes, :interpreter_business_name, :interpreter_first_name, :interpreter_last_name, :interpreter_email, :interpreter_phone
 
-  filter :last_name
-  filter :first_name
+  filter 'last_name_cont', :label => 'Last Name'
+  filter 'first_name_cont', :label => 'First Name'
   filter :date_of_birth
-  filter :primary_phone_or_alternate_phone, :label => 'Phone', :as => :string
-  filter :email
-  filter :alien_registration_number
-  filter :uscis_online_account_number
+  filter 'primary_phone_or_alternate_phone_cont', :label => 'Phone', :as => :string
+  filter 'email_cont', :label => 'Email'
+  filter 'alien_registration_number_cont', :label => 'Alien Registration Number'
+  filter 'uscis_online_account_number_cont', :label => 'USCIS Online Account Number'
 
   action_item :only => [:edit, :show] do
     link_to 'Medical Records', admin_medical_records_path(patient_id: patient.id)
+  end
+
+  action_item :only => [:edit, :show] do
+    link_to 'New Appointment', admin_appointments_path(patient_id: patient.id)
   end
 
   index :download_links => false do
