@@ -4,5 +4,5 @@ json.array!(@appointments) do |appointment|
   json.description appointment.notes
   json.start appointment.date_time
   json.time_range appointment.time_range
-  json.url edit_admin_appointment_url(appointment)
+  json.url edit_admin_appointment_url(appointment) + "?patient_id=#{appointment.patient.id}"
 end
