@@ -25,13 +25,13 @@ ActiveAdmin.register Appointment do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     br
-    f.inputs 'Appointment Details' do
+    f.inputs controller.instance_variable_get(:@formatted_date) do
       f.input :patient_id, label: 'Patient', :as => :hidden, :input_html => { :readonly => true }
-      f.input :date, :as => :datepicker
+      f.input :date, :as => :hidden
       f.input :time, :as => :string, :input_html => { :class => 'timepicker' }
       f.input :notes
       f.input :status, :as => :select, :collection => ['Cancelled', 'Confirmed', 'Unconfirmed'], :include_blank => true
-      f.input :patient_agnostic, :as => :hidden, :input_html => { :value => params[:patient_agnostic]}
+      f.input :patient_agnostic, :as => :hidden, :input_html => { :value => controller.instance_variable_get(:@patient_agnostic) }
     end
     f.actions
   end
@@ -71,14 +71,21 @@ ActiveAdmin.register Appointment do
     end
 
     def new
-      use_patient_page_title(params[:patient_id])
+      date = params[:date]
+      @formatted_date = date.to_date.strftime('%A, %B %-d')
+      patient_id = params[:patient_id]
+      customize_page_title(patient_id)
       super
     end
 
     def create
       super do |format|
+        date = resource.date
+        @formatted_date = date.to_date.strftime('%A, %B %-d')
+        patient_id = resource.patient_id
+        customize_page_title(patient_id)
         if resource.valid?
-          parameters = { patient_id: resource.patient_id, date: resource.date }
+          parameters = { patient_id: patient_id, date: date }
           notice = 'Appointment successfully created'
           return redirect_to_index(notice, parameters)
         end
@@ -86,29 +93,35 @@ ActiveAdmin.register Appointment do
     end
 
     def edit
-      use_patient_page_title(resource.patient_id)
-      super
+      super do
+        @patient_agnostic = params[:patient_agnostic]
+        date = resource.date
+        @formatted_date = date.to_date.strftime('%A, %B %-d')
+        patient_id = resource.patient_id
+        customize_page_title(patient_id)
+      end
     end
 
     def update
-      super do |format|
+      super do
+        date = resource.date
+        @formatted_date = date.to_date.strftime('%A, %B %-d')
+        patient_id = resource.patient_id
+        customize_page_title(patient_id)
+        patient_agnostic = params['appointment']['patient_agnostic']
+        @patient_agnostic = true if patient_agnostic.present?
         if resource.valid?
-          if params['appointment']['patient_agnostic'].present?
-            parameters = { date: resource.date }
-          else
-            parameters = { patient_id: resource.patient_id, date: resource.date }
-          end
+          parameters =
+            @patient_agnostic ? { date: date } : { patient_id: patient_id, date: date }
           notice = 'Appointment successfully updated'
           return redirect_to_index(notice, parameters)
-        elsif params['appointment']['patient_agnostic'].present?
-          params['appointment']['patient_agnostic'] = 'true'
         end
       end
     end
 
     private
 
-    def use_patient_page_title patient_id
+    def customize_page_title patient_id
       patient = Patient.find(patient_id)
       patient_name = "#{patient.first_name} #{patient.last_name}"
       patient_dob = patient.date_of_birth
