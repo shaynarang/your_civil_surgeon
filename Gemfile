@@ -24,6 +24,7 @@ gem 'formadmin'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'select2-rails'
+gem 'bootstrap-popover-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri

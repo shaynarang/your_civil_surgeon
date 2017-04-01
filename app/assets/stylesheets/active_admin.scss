@@ -19,6 +19,9 @@
 // Timepicker
 @import 'jquery.timepicker.css';
 
+@import 'bootstrap/bootstrap-rails-tooltip';
+@import 'bootstrap/bootstrap-rails-popover';
+
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
