@@ -83,7 +83,7 @@ $(document).ready ->
 
     directToNewAppointment = ->
       # direct user to new appointments upon calendar day click
-      $(document).on 'click', '.fc-day', ->
+      $(document).on 'click', '.fc-day-top', ->
 
         date = $(this).data('date')
         date_query = '?date=' + date
@@ -103,7 +103,7 @@ $(document).ready ->
         # disable edit for other patients
         disableAppointmentEdit(patient_id)
         # add cursor for new appointments
-        $('td.fc-day').css('cursor', 'pointer')
+        $('td.fc-day-top').css('cursor', 'pointer')
         # direct user to new appointments upon calendar day click
         directToNewAppointment()
 
