@@ -24,7 +24,6 @@ gem 'formadmin'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'select2-rails'
-gem 'gon'
 
 group :development, :test do
   gem 'byebug', platform: :mri

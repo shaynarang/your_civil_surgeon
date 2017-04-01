@@ -58,6 +58,7 @@ ActiveAdmin.register Appointment do
   end
 
   controller do
+
     def index
       if params[:patient_id]
         patient = Patient.find(params[:patient_id])
