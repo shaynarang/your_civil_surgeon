@@ -8,163 +8,181 @@ $(document).ready ->
   split_path = window.location.pathname.split('/')
 
   # stop if the current page is not an appointments page
-  return if split_path.indexOf('appointments') == -1
+  return unless $('body').hasClass('admin_appointments')
 
-  # datepicker config
-  $('.datepicker').datepicker
-    changeYear: true
-    changeMonth: true
-    yearRange: "1900:(new Date).getFullYear()"
-    dateFormat: 'yy-mm-dd'
+  # establish current page
+  if $('body').hasClass('new') || $('body').hasClass('create')
+    page = 'new'
+  else if $('body').hasClass('edit') || $('body').hasClass('update')
+    page = 'edit'
+  else
+    page = 'index'
 
-  # timepick with optional disable ranges
-  timePick = (disable_ranges) ->
-    disable_ranges = disable_ranges || []
+  # obtain search parameters
+  search_params = new URLSearchParams(window.location.search)
 
-    # block off lunch hour
-    disable_ranges.push ['12:00pm', '1:00pm']
+####################################################################################
 
-    # timepicker config
-    $('.timepicker').timepicker
-      minTime: '9:00am',
-      maxTime: '4:00pm',
-      disableTimeRanges:
-        disable_ranges
+  # INDEX PAGE
 
-  # timepick without disable range
-  timePick()
+  if page == 'index'
+    # fullcalendar config
+    $('#calendar').fullCalendar
+      header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,listWeek,listDay'
+              }
+      events: '/appointments.json'
+      loading: (bool) ->
+        if bool
+          console.log('Loading calendar...')
+        else
+          console.log('Great success.')
+          setUpCalendar()
+      editable: true
+      eventDrop: (event) ->
+        console.log(event)
+      eventMouseover: (event) ->
+        console.log(event)
 
-  # fullcalendar config
-  $('#calendar').fullCalendar
-    header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'month,listWeek,listDay'
+    # replace full calendar link names
+    $('.fc-today-button').html 'Back To Today'
+    $('.fc-month-button').html 'Month'
+    $('.fc-listWeek-button').html 'Week'
+    $('.fc-listDay-button').html 'Day'
+
+    disableAppointmentEdit = (patient_id) ->
+      $.each $('a.fc-day-grid-event'), (_index, value) ->
+        edit_link = new URL($(this).attr('href'))
+        edit_link_params = new URLSearchParams(edit_link.search.slice(1));
+        editPatientId = edit_link_params.get('patient_id')
+
+        if patient_id != editPatientId
+          $(this).attr('href', '').css(
+            {
+              'cursor': 'pointer',
+              'pointer-events' : 'none'
             }
-    events: '/appointments.json'
-    loading: (bool) ->
-      if bool
-        console.log('Loading calendar...')
-      else
-        console.log('Great success.')
-        setUpCalendar()
+          )
+        else
+          href = $(this).attr('href')
+          updated_href = href.slice(0, href.lastIndexOf('&'))
+          $(this).attr('href', updated_href)
 
-  # replace full calendar link names
-  $('.fc-today-button').html 'Back To Today'
-  $('.fc-month-button').html 'Month'
-  $('.fc-listWeek-button').html 'Week'
-  $('.fc-listDay-button').html 'Day'
-
-  disableAppointmentEdit = (patient_id) ->
-    $.each $('a.fc-day-grid-event'), (_index, value) ->
-      editLink = new URL($(this).attr('href'))
-      editLinkParams = new URLSearchParams(editLink.search.slice(1));
-      editPatientId = editLinkParams.get('patient_id')
-
-      if patient_id != editPatientId
-        $(this).attr('href', '').css(
-          {
-            'cursor': 'pointer',
-            'pointer-events' : 'none'
-          }
-        )
-
-  directToNewAppointment = ->
-    # direct user to new appointments upon calendar day click
-    $(document).on 'click', '.fc-day', ->
-
-      date = $(this).data('date')
-      date_query = '?date=' + date
-
-      link = '/admin/appointments/new' + date_query
-
-      searchParams = new URLSearchParams(window.location.search)
-      if searchParams.has('patient_id')
-        # obtain patient_id
-        patient_id = searchParams.get('patient_id')
-        patient_query = '&patient_id=' + patient_id
-
-      if patient_query
-        window.location.href = link + patient_query
-      else
-        window.location.href = link
-
-  setUpCalendar = ->
-    # check search params
-    searchParams = new URLSearchParams(window.location.search)
-    # if patient_id parameter is available
-    if searchParams.has('patient_id')
-      patient_id = searchParams.get('patient_id')
-      # disable edit for other patients
-      disableAppointmentEdit(patient_id)
-      # add cursor for new appointments
-      $('td.fc-day').css('cursor', 'pointer')
+    directToNewAppointment = ->
       # direct user to new appointments upon calendar day click
-      directToNewAppointment()
+      $(document).on 'click', '.fc-day', ->
 
-  # obtain unavailable times for date
-  getUnavailableTimes = (appointments) ->
-    unavailable_times = []
-    $.each appointments, (_key, value) ->
-      time_range = value['time_range']
-      unavailable_times.push time_range
-    # pass unavailable times to timepicker
-    timePick(unavailable_times)
+        date = $(this).data('date')
+        date_query = '?date=' + date
 
-  # get appointments for date
-  getAppointments = (date) ->
-    $.ajax(
-        url: '/appointments?date=' + date
-      )
-      .done (data) ->
-        getUnavailableTimes(data)
-      .fail ->
-        console.log('fail!')
-        return
+        link = '/admin/appointments/new' + date_query
 
-  # prepopulate new appointment date if necessary
+        if search_params.has('patient_id')
+          patient_id = search_params.get('patient_id')
+          patient_query = '&patient_id=' + patient_id
+          window.location.href = link + patient_query
+        else
+          window.location.href = link
 
-  # if the current page is the new appointment page
-  if split_path.indexOf('new') > -1
-    # grab the url parameters
-    searchParams = new URLSearchParams(window.location.search)
+    setUpCalendar = ->
+      if search_params.has('patient_id')
+        patient_id = search_params.get('patient_id')
+        # disable edit for other patients
+        disableAppointmentEdit(patient_id)
+        # add cursor for new appointments
+        $('td.fc-day').css('cursor', 'pointer')
+        # direct user to new appointments upon calendar day click
+        directToNewAppointment()
 
-    if searchParams.has('date')
-      # obtain date value
-      date = searchParams.get('date')
+    if search_params.has('date')
+      date = search_params.get('date')
+      $('#calendar').fullCalendar('gotoDate', date)
+
+####################################################################################
+
+  # NEW/EDIT PAGES
+
+  if page == 'new' || page == 'edit'
+    # datepicker config
+    $('.datepicker').datepicker
+      changeYear: true
+      changeMonth: true
+      yearRange: "1900:(new Date).getFullYear()"
+      dateFormat: 'yy-mm-dd'
+
+    # timepick with optional disable ranges
+    timePick = (disable_ranges) ->
+      disable_ranges = disable_ranges || []
+
+      # block off lunch hour
+      disable_ranges.push ['12:00pm', '1:00pm']
+
+      # timepicker config
+      $('.timepicker').timepicker
+        minTime: '9:00am',
+        maxTime: '4:00pm',
+        disableTimeRanges:
+          disable_ranges
+
+    timePick()
+
+    # obtain unavailable times for date
+    getUnavailableTimes = (appointments) ->
+      unavailable_times = []
+      $.each appointments, (_key, value) ->
+        time_range = value['time_range']
+        unavailable_times.push time_range
+      # pass unavailable times to timepicker
+      timePick(unavailable_times)
+
+    # get appointments for date
+    getAppointments = (date) ->
+      $.ajax(
+          url: '/appointments?date=' + date
+        )
+        .done (data) ->
+          getUnavailableTimes(data)
+        .fail ->
+          console.log('fail!')
+          return
+
+    resetAppointments = ->
+      # reset appointment times
+      $('#appointment_time').val('')
+      # grab selected date
+      date = $('#appointment_date').val()
+      # get available times for date
+      getAppointments(date)
+
+    $('#appointment_date').change ->
+      resetAppointments()
+
+    date = $('#appointment_date').val()
+    # get available times for date
+    getAppointments(date)
+
+    patient_agnostic = search_params.get('patient_agnostic')
+    if !patient_agnostic
+      if search_params.has('patient_id')
+        # grab the id of the selected patient
+        patient_id = search_params.get('patient_id')
+        # add patient_id parameter to cancel button
+        $('li.cancel a').attr('href', '/admin/appointments?patient_id=' + patient_id)
+
+####################################################################################
+
+  if page == 'new'
+    date = search_params.get('date')
+    if date
       # prepopulate date field
       $('#appointment_date').val(date)
       # disable appropriate times
       getAppointments(date)
 
-    if searchParams.has('patient_id')
-      # obtain patient_id value
-      patient_id = searchParams.get('patient_id')
+    patient_id = search_params.get('patient_id')
+    if patient_id
       # prepopulate patient_id field
       $('#appointment_patient_id').val(patient_id).trigger('change')
       # $('option[value=' + patient_id + ']', '#appointment_patient_id').attr('selected', true)
-
-  $(document).on 'change', '#appointment_date', ->
-    # reset appointment times
-    $('#appointment_time').val('')
-    # grab selected date
-    date = $(this).val()
-    # get available times for date
-    getAppointments(date)
-
-  if split_path.indexOf('new') > -1 || split_path.indexOf('edit') > -1
-    # grab the id of the selected patient
-    patient_id = $('#appointment_patient_id').val()
-    # add patient_id parameter to cancel button
-    $('li.cancel a').attr('href', '/admin/appointments?patient_id=' + patient_id)
-
-    # grab selected date
-    date = $(this).val()
-    # get available times for date
-    getAppointments(date)
-
-  # retain calendar position via date parameter
-  searchParams = new URLSearchParams(window.location.search)
-  if searchParams.has('date')
-    date = searchParams.get('date')
-    $('#calendar').fullCalendar('gotoDate', date)
