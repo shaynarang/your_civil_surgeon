@@ -11,4 +11,13 @@ class AppointmentsController < ApplicationController
 
     render :index
   end
+
+  def update
+    appointment = Appointment.find(params[:id])
+    date = params[:date]
+
+    appointment.update_attributes(date: date)
+
+    head :ok
+  end
 end

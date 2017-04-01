@@ -42,9 +42,9 @@ $(document).ready ->
           setUpCalendar()
       editable: true
       eventDrop: (event) ->
-        console.log(event)
+        rescheduleAppointment(event)
       eventMouseover: (event) ->
-        console.log(event)
+        # console.log(event)
 
     # replace full calendar link names
     $('.fc-today-button').html 'Back To Today'
@@ -100,6 +100,16 @@ $(document).ready ->
       date = search_params.get('date')
       $('#calendar').fullCalendar('gotoDate', date)
 
+    rescheduleAppointment = (event) ->
+      id = event.id
+      date = event.start.format()
+      $.ajax
+        url: '/appointments/' + id + '?date=' + date
+        type: 'PATCH'
+        contentType: 'application/json'
+        xhr: ->
+          if window.XMLHttpRequest == null or (new (window.XMLHttpRequest)).addEventListener == null then new (window.ActiveXObject)('Microsoft.XMLHTTP') else $.ajaxSettings.xhr()
+
 ####################################################################################
 
   # NEW/EDIT PAGES
@@ -126,8 +136,6 @@ $(document).ready ->
         disableTimeRanges:
           disable_ranges
 
-    timePick()
-
     # obtain unavailable times for date
     getUnavailableTimes = (appointments) ->
       unavailable_times = []
@@ -148,20 +156,20 @@ $(document).ready ->
           console.log('fail!')
           return
 
+    date = $('#appointment_date').val()
+    # get available times for date
+    getAppointments(date)
+
     resetAppointments = ->
       # reset appointment times
       $('#appointment_time').val('')
       # grab selected date
       date = $('#appointment_date').val()
-      # get available times for date
+      # get unavailable times for date
       getAppointments(date)
 
     $('#appointment_date').change ->
       resetAppointments()
-
-    date = $('#appointment_date').val()
-    # get available times for date
-    getAppointments(date)
 
     patient_agnostic = search_params.get('patient_agnostic')
     if !patient_agnostic
