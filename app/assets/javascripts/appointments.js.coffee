@@ -43,8 +43,19 @@ $(document).ready ->
       editable: true
       eventDrop: (event) ->
         rescheduleAppointment(event)
-      eventMouseover: (event) ->
-        # console.log(event)
+      eventMouseover: (event, jsEvent) ->
+        if event.description
+          content = event.description
+        else
+          content = ''
+        $(this).popover
+            title: event.title,
+            trigger: 'manual',
+            content: content,
+            container: '#calendar'
+        .popover('toggle')
+      eventMouseout: (event, jsEvent) ->
+        $(this).popover('hide')
 
     # replace full calendar link names
     $('.fc-today-button').html 'Back To Today'
