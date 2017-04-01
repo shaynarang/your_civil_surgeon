@@ -31,6 +31,7 @@ ActiveAdmin.register Appointment do
       f.input :time, :as => :string, :input_html => { :class => 'timepicker' }
       f.input :notes
       f.input :status, :as => :select, :collection => ['Cancelled', 'Confirmed', 'Unconfirmed'], :include_blank => true
+      f.input :patient_agnostic, :as => :hidden, :input_html => { :value => params[:patient_agnostic]}
     end
     f.actions
   end
@@ -89,8 +90,15 @@ ActiveAdmin.register Appointment do
     def update
       super do |format|
         if resource.valid?
+          if params['appointment']['patient_agnostic'].present?
+            parameters = { date: resource.date }
+          else
+            parameters = { patient_id: resource.patient_id, date: resource.date }
+          end
           notice = 'Appointment successfully updated'
-          return redirect_to_index(notice)
+          return redirect_to_index(notice, parameters)
+        elsif params['appointment']['patient_agnostic'].present?
+          params['appointment']['patient_agnostic'] = 'true'
         end
       end
     end

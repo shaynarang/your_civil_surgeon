@@ -3,6 +3,8 @@ class Appointment < ApplicationRecord
 
   validates_presence_of :date, :time, :patient_id
 
+  attr_accessor :patient_agnostic
+
   def self.on_the_books
     statuses = ['Confirmed', 'Unconfirmed', nil]
     where(status: statuses)
