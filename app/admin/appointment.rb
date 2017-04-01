@@ -53,7 +53,8 @@ ActiveAdmin.register Appointment do
   member_action :cancel do
     resource.update_attributes(status: 'Cancelled')
     notice = 'Appointment has been cancelled'
-    return redirect_to_index(notice)
+    parameters = { date: resource.date }
+    return redirect_to_index(notice, parameters)
   end
 
   controller do
@@ -76,8 +77,9 @@ ActiveAdmin.register Appointment do
     def create
       super do |format|
         if resource.valid?
+          parameters = { patient_id: resource.patient_id, date: resource.date }
           notice = 'Appointment successfully created'
-          return redirect_to_index(notice)
+          return redirect_to_index(notice, parameters)
         end
       end
     end
@@ -114,10 +116,9 @@ ActiveAdmin.register Appointment do
       @page_title = title.html_safe
     end
 
-    def redirect_to_index notice
+    def redirect_to_index notice, parameters
       if resource.valid?
-        params = { patient_id: resource.patient_id, date: resource.date }
-        return redirect_to collection_url(params), notice: notice
+        return redirect_to collection_url(parameters), notice: notice
       end
     end
   end
