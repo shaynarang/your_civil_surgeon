@@ -6,7 +6,7 @@ class Appointment < ApplicationRecord
   attr_accessor :patient_agnostic
 
   def self.on_the_books
-    statuses = ['Confirmed', 'Unconfirmed', nil]
+    statuses = ['Confirmed', 'Scheduled', nil]
     where(status: statuses)
   end
 

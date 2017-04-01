@@ -32,8 +32,8 @@ ActiveAdmin.register Appointment do
       f.input :date, :as => :hidden
       f.input :time, :as => :string, :input_html => { :class => 'timepicker' }
       f.input :notes
-      f.input :status, :as => :select, :collection => ['Cancelled', 'Confirmed', 'Unconfirmed'], :include_blank => true
-      f.input :patient_agnostic, :as => :hidden, :input_html => { :value => controller.instance_variable_get(:@patient_agnostic) }
+      f.input :status, :as => :select, :collection => ['Scheduled', 'Confirmed '], :include_blank => false
+      f.input :patient_agnostic, :as => :hidden, :input_html => { :value => controller.instance_variable_get(:@patient_agnostic), :width => '20%' }
     end
     f.actions
   end
