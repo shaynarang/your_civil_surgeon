@@ -64,6 +64,12 @@
   }
 }
 
+.admin_patients.new, .admin_patients.create {
+  .flashes {
+    margin-top: 117px;
+  }
+}
+
 .admin_medical_records.index {
   .flashes {
     margin-top: 177px;
