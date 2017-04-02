@@ -9,6 +9,8 @@ ActiveAdmin.register Appointment do
 
   config.batch_actions = false
 
+  config.paginate = false
+
   action_item :only => [:edit, :show] do
     unless appointment.status == 'Cancelled'
       confirmation_message = 'Are you sure you would like to cancel this appointment?'
