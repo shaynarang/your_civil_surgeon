@@ -21,6 +21,8 @@ ActiveAdmin.register Appointment do
   action_item :only => [:index] do
     if params[:patient_id]
       link_to 'Exit Patient', admin_appointments_path
+    else
+      link_to 'Patients', admin_patients_path
     end
   end
 
