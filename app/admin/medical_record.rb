@@ -4,19 +4,25 @@ ActiveAdmin.register MedicalRecord do
 
   config.clear_action_items!
 
-  action_item :only => [:index, :edit, :show] do
-    params[:patient_id] ? patient = Patient.find(params[:patient_id]) : patient = medical_record.patient
-    link_to 'Back to Patient', admin_patient_path(patient)
-  end
+  config.sort_order = 'date_of_service_desc'
 
   action_item :only => [:index] do
     params[:patient_id] ? patient = Patient.find(params[:patient_id]) : patient = medical_record.patient
     link_to 'New Medical Record', new_admin_medical_record_path(patient_id: patient.id)
   end
 
+  action_item :only => [:show] do
+    link_to 'Edit Medical Record', edit_admin_medical_record_path(resource)
+  end
+
   action_item :only => [:edit, :show] do
     params[:patient_id] ? patient = Patient.find(params[:patient_id]) : patient = medical_record.patient
-    link_to 'All Medical Records', admin_medical_records_path(patient_id: patient.id)
+    link_to 'Back to Medical Records', admin_medical_records_path(patient_id: patient.id)
+  end
+
+  action_item :only => [:index, :edit] do
+    params[:patient_id] ? patient = Patient.find(params[:patient_id]) : patient = medical_record.patient
+    link_to 'Back to Patient', admin_patient_path(patient)
   end
 
   permit_params :kind, :scan, :patient_id, :date_of_service
