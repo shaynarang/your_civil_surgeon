@@ -16,17 +16,17 @@ ActiveAdmin.register Patient do
   end
 
   action_item :only => [:edit, :show] do
-    link_to 'New Appointment', admin_appointments_path(patient_id: patient.id)
+    link_to 'Make Appointment', admin_appointments_path(patient_id: patient.id)
   end
+
+  config.sort_order = 'last_name_asc'
 
   index :download_links => false do
     id_column
     column :last_name
     column :first_name
     column :date_of_birth
-    column :primary_phone
-    column :alternate_phone
-    actions
+    actions name: 'Edit'
   end
 
   form do |f|
