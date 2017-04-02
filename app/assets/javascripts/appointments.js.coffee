@@ -53,6 +53,7 @@ $(document).ready ->
             trigger: 'manual',
             content: content,
             container: '#calendar'
+            placement: 'top'
         .popover('toggle')
       eventMouseout: (event, jsEvent) ->
         $(this).popover('hide')
