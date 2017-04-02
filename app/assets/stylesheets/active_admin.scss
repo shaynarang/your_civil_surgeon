@@ -27,6 +27,61 @@
 //
 //   .status_tag { background: #6090DB; }
 
+.title_bar {
+  position: fixed;
+  z-index: 10;
+
+  #page_title {
+    line-height: 1.5;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  #titlebar_right {
+    .action_item a {
+      text-transform: none;
+      font-weight: normal;
+    }
+  }
+}
+
+.patient_agnostic {
+  .flashes {
+    margin-top: 133px;
+  }
+}
+
+.patient_specific {
+  .flashes {
+    margin-top: 190px;
+  }
+}
+
+.admin_patients.index {
+  .flashes {
+    margin-top: 133px;
+  }
+}
+
+.admin_medical_records.index {
+  .flashes {
+    margin-top: 177px;
+  }
+}
+
+.show {
+  .flashes {
+    margin-top: 190px;
+  }
+}
+
+.new, .create, .edit, .update {
+  .flashes {
+    margin-top: 175px;
+  }
+}
+
 .errors {
   color: red;
   font-size: 120%;
@@ -38,6 +93,70 @@
 
 .select2 {
   margin-left: 20px;
+  height: 40px !important;
+}
+
+.select2-selection, .select2-dropdown {
+  border: 1px solid rgba(204, 204, 204, 0.75) !important;
+}
+
+.select2-selection, .select2-results__option, .select2-selection__arrow, .select2-search__field {
+  height: 40px !important;
+}
+
+.select2-results__option {
+  padding-top: 12px;
+}
+
+.select2-selection__rendered {
+  padding-top: 6px;
+  line-height: initial !important;
+}
+
+form.filter_form {
+  input {
+    height: 40px;
+    padding: 10px 12px !important;
+    font-size: 16px !important;
+  }
+
+  a.clear_filters_btn {
+    height: 40px;
+    padding: inherit !important;
+    font-size: 16px;
+  }
+  a.clear_filters_btn:hover {
+    text-decoration: none !important;
+  }
+
+  .filter_form_field.filter_date_range input[type='text'] {
+    background-position: 100% 12px !important;
+    font-size: 12px !important;
+  }
+
+  .select2 {
+    margin-left: 0;
+  }
+}
+
+tr.odd > td:not(:last-of-type), tr.even > td:not(:last-of-type) {
+  cursor: pointer;
+}
+
+td.col-actions {
+  cursor: pointer
+}
+
+.highlight {
+  background-color: #f2f2f2 !important;
+}
+
+table.index_table tbody tr:hover td {
+  background-color: initial;
+}
+
+table.index_table tbody tr:nth-child(even):hover td {
+  background-color: #f9f9f9;
 }
 
 .select2-container--default .select2-selection--single {
@@ -46,10 +165,33 @@
   padding: 6px 5px;
 }
 
-a {
-  text-decoration: none;
+h2#page_title {
+  a {
+    text-decoration: none;
+  }
 }
 
-a:hover {
-    text-decoration: underline;
-  }
+.pagination_information { 
+  display: none;
+}
+
+a.view_link {
+  display: none !important;
+}
+
+.col-actions, .table_actions {
+  text-align: center !important;
+}
+
+@-webkit-keyframes blinker {
+  from {opacity: 1.0;}
+  to {opacity: 0.0;}
+}
+.blink{
+  text-decoration: blink;
+  -webkit-animation-name: blinker;
+  -webkit-animation-duration: 0.6s;
+  -webkit-animation-iteration-count:infinite;
+  -webkit-animation-timing-function:ease-in-out;
+  -webkit-animation-direction: alternate;
+}
