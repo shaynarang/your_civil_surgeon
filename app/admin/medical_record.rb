@@ -31,32 +31,23 @@ ActiveAdmin.register MedicalRecord do
   filter :date_of_service
 
   index :download_links => false do
-    column :patient do |medical_record|
-      patient = medical_record.patient
-      patient.name
-    end
-    column :date_of_birth do |medical_record|
-      patient = medical_record.patient
-      patient.date_of_birth
-    end
     column :date_of_service
     column :kind
     column :scan do |medical_record|
       image_tag(medical_record.scan.url(:thumb)) if medical_record.scan && !medical_record.scan.url.blank?
     end
-    actions
+    actions name: 'Edit'
   end
 
   form :multipart => true do |f|
     f.semantic_errors *f.object.errors.keys
     br
     f.inputs 'Medical Record Details' do
-      params[:patient_id] ? patient = Patient.find(params[:patient_id]) : patient = medical_record.patient
-      patient_collection = [["#{patient.id} - #{patient.last_name}, #{patient.first_name} #{patient.middle_name} (DOB: #{patient.date_of_birth})", patient.id ]]
-      f.input :patient_id, label: 'Patient', :as => :select, :collection => patient_collection, :include_blank => false
+      f.input :patient_id, label: 'Patient', :as => :hidden, :include_blank => false
       f.input :date_of_service, :as => :datepicker
       f.input :kind, :collection => ['Physical', 'Lab Work', 'Form', 'Other']
       f.input :scan, :label => 'Upload Scan', :hint => (image_tag(f.object.scan.url(:thumb)) if f.object.scan && !f.object.scan.url.blank?)
+      f.input :_destroy_scan, as: :boolean, required: :false, label: 'Remove scan'
     end
     f.actions
   end
