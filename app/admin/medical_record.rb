@@ -80,10 +80,61 @@ ActiveAdmin.register MedicalRecord do
       super.where(patient_id: params[:patient_id])
     end
 
+    def index
+      super do
+        if params[:patient_id]
+          patient = Patient.find(params[:patient_id])
+          patient_name = "#{patient.first_name} #{patient.last_name}"
+          patient_dob = patient.date_of_birth
+          link = "<b><a href='/admin/patients/#{patient.id}'>#{patient.name}</a></b>"
+          text = "Medical Records for...</br>#{link}</br>DOB: #{patient_dob}"
+          @page_title = text.html_safe
+        end
+      end
+    end
+
+    def new
+      customize_page_title(params[:patient_id])
+      super
+    end
+
+    def create
+      # remove scan if destroy checkbox is checked
+      resource['scan'] = nil if params[:medical_record][:_destroy_scan] == '1'
+      super
+    end
+
+    def edit
+      customize_page_title(resource.patient_id)
+      super
+    end
+
+    def update
+      # remove scan if destroy checkbox is checked
+      resource['scan'] = nil if params[:medical_record][:_destroy_scan] == '1'
+      customize_page_title(resource.patient_id)
+      super
+    end
+
+    def show
+      customize_page_title(resource.patient_id)
+      super
+    end
+
+    private
+
     def find_record
       # the scoped collection only wants to display medical records within the appropriate scope
       # let's explicitly instruct the action to find the medical record regardless of status
       @medical_record = MedicalRecord.find params[:id]
+    end
+
+    def customize_page_title patient_id
+      patient = Patient.find(patient_id)
+      patient_dob = patient.date_of_birth
+      link = "<b><a href='/admin/patients/#{patient.id}'>#{patient.name}</a></b>"
+      title = "Medical Record Details for...</br>#{link}</br>DOB: #{patient_dob}"
+      @page_title = title.html_safe
     end
   end
 end

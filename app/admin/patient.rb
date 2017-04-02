@@ -117,5 +117,30 @@ ActiveAdmin.register Patient do
 
   controller do
     actions :all, :except => [:destroy]
+
+    def edit
+      customize_page_title(resource.id)
+      super
+    end
+
+    def update
+      customize_page_title(resource.id)
+      super
+    end
+
+    def show
+      customize_page_title(resource.id)
+      super
+    end
+
+    private
+
+    def customize_page_title patient_id
+      patient = Patient.find(patient_id)
+      patient_dob = patient.date_of_birth
+      link = "<b><a href='/admin/patients/#{patient.id}'>#{patient.name}</a></b>"
+      title = "Patient Details for...</br>#{link}</br>DOB: #{patient_dob}"
+      @page_title = title.html_safe
+    end
   end
 end

@@ -72,8 +72,8 @@ ActiveAdmin.register Appointment do
         patient = Patient.find(params[:patient_id])
         patient_name = "#{patient.first_name} #{patient.last_name}"
         patient_dob = patient.date_of_birth
-        link = "<b><a href='/admin/patients/#{patient.id}'>#{patient_name}</a></b>"
-        text = "Scheduling Appointment for #{link} (#{patient_dob})"
+        link = "<b><a href='/admin/patients/#{patient.id}'>#{patient.name}</a></b>"
+        text = "<span class='blink'>Scheduling Appointment for...</span></br>#{link}</br>DOB: #{patient_dob}"
         @page_title = text.html_safe
       end
     end
@@ -131,10 +131,9 @@ ActiveAdmin.register Appointment do
 
     def customize_page_title patient_id
       patient = Patient.find(patient_id)
-      patient_name = "#{patient.first_name} #{patient.last_name}"
       patient_dob = patient.date_of_birth
-      link = "<b><a href='/admin/patients/#{patient.id}'>#{patient_name}</a></b>"
-      title = "Appointment Details for #{link} (#{patient_dob})"
+      link = "<b><a href='/admin/patients/#{patient.id}'>#{patient.name}</a></b>"
+      title = "Appointment Details for...</br>#{link}</br>DOB: #{patient_dob}"
       @page_title = title.html_safe
     end
 
