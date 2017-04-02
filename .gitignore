@@ -21,3 +21,6 @@ public/uploads/
 
 # Ignore .DS_Store
 .DS_Store
+
+# Ignore dot env
+.env
