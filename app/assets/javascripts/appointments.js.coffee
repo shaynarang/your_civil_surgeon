@@ -101,12 +101,17 @@ $(document).ready ->
     setUpCalendar = ->
       if search_params.has('patient_id')
         patient_id = search_params.get('patient_id')
+        $('body').removeClass('patient_agnostic')
+        $('body').addClass('patient_specific')
         # disable edit for other patients
         disableAppointmentEdit(patient_id)
         # add cursor for new appointments
         $('td.fc-day-top').css('cursor', 'pointer')
         # direct user to new appointments upon calendar day click
         directToNewAppointment()
+      else
+        $('body').addClass('patient_agnostic')
+        $('body').removeClass('patient_specific')
 
     if search_params.has('date')
       date = search_params.get('date')
