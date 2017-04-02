@@ -126,13 +126,6 @@ $(document).ready ->
   # NEW/EDIT PAGES
 
   if page == 'new' || page == 'edit'
-    # datepicker config
-    $('.datepicker').datepicker
-      changeYear: true
-      changeMonth: true
-      yearRange: "1900:(new Date).getFullYear()"
-      dateFormat: 'yy-mm-dd'
-
     # timepick with optional disable ranges
     timePick = (disable_ranges) ->
       disable_ranges = disable_ranges || []
