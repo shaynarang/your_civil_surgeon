@@ -7,9 +7,6 @@ ActiveAdmin.register Patient do
   filter 'first_name_cont', :label => 'First Name'
   filter :date_of_birth
   filter 'primary_phone_or_alternate_phone_cont', :label => 'Phone', :as => :string
-  filter 'email_cont', :label => 'Email'
-  filter 'alien_registration_number_cont', :label => 'Alien Registration Number'
-  filter 'uscis_online_account_number_cont', :label => 'USCIS Online Account Number'
 
   action_item :only => [:edit, :show] do
     link_to 'Medical Records', admin_medical_records_path(patient_id: patient.id)
