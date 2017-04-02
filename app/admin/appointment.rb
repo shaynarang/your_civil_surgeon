@@ -1,4 +1,6 @@
 ActiveAdmin.register Appointment do
+  menu priority: 2
+
   permit_params :date, :time, :patient_id, :notes, :status
 
   config.filters = false

@@ -1,4 +1,5 @@
 ActiveAdmin.register Patient do
+  menu priority: 1
 
   permit_params :first_name, :last_name, :middle_name, :street1, :street2, :city, :state, :zip, :sex, :date_of_birth, :city_of_origin, :country_of_origin, :alien_registration_number, :uscis_online_account_number, :email, :primary_phone, :alternate_phone, :additional_notes, :interpreter_business_name, :interpreter_first_name, :interpreter_last_name, :interpreter_email, :interpreter_phone
 
