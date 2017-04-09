@@ -45,7 +45,7 @@ ActiveAdmin.register MedicalRecord do
     f.inputs 'Medical Record Details' do
       f.input :patient_id, label: 'Patient', :as => :hidden, :include_blank => false
       f.input :date_of_service, :as => :datepicker
-      f.input :kind, :collection => ['Physical', 'Lab Work', 'Form', 'Other']
+      f.input :kind, :collection => ['Physical', 'Lab', 'X-Ray', 'Immunization', 'Other']
       f.input :scan, :label => 'Upload Scan', :hint => (image_tag(f.object.scan.url(:thumb)) if f.object.scan && !f.object.scan.url.blank?)
       f.input :_destroy_scan, as: :boolean, required: :false, label: 'Remove scan'
     end
