@@ -172,8 +172,8 @@ $(document).ready ->
     getAppointments(date)
 
     resetAppointments = ->
-      # reset appointment times
-      $('#appointment_time').val('')
+      # unbind current timepicker object
+      $('#appointment_time').timepicker 'remove'
       # grab selected date
       date = $('#appointment_date').val()
       # get unavailable times for date
