@@ -33,9 +33,9 @@ ActiveAdmin.register Appointment do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     br
-    f.inputs controller.instance_variable_get(:@formatted_date) do
+    f.inputs 'Appointment Details' do
       f.input :patient_id, label: 'Patient', :as => :hidden, :input_html => { :readonly => true }
-      f.input :date, :as => :hidden
+      f.input :date, :as => :datepicker
       f.input :time, :as => :string, :input_html => { :class => 'timepicker' }
       f.input :notes
       f.input :status, :as => :select, :collection => ['Scheduled', 'Confirmed '], :include_blank => false
@@ -80,7 +80,6 @@ ActiveAdmin.register Appointment do
 
     def new
       date = params[:date]
-      @formatted_date = date.to_date.strftime('%A, %B %-d')
       patient_id = params[:patient_id]
       customize_page_title(patient_id)
       super
@@ -89,7 +88,6 @@ ActiveAdmin.register Appointment do
     def create
       super do |format|
         date = resource.date
-        @formatted_date = date.to_date.strftime('%A, %B %-d')
         patient_id = resource.patient_id
         customize_page_title(patient_id)
         if resource.valid?
@@ -104,7 +102,6 @@ ActiveAdmin.register Appointment do
       super do
         @patient_agnostic = params[:patient_agnostic]
         date = resource.date
-        @formatted_date = date.to_date.strftime('%A, %B %-d')
         patient_id = resource.patient_id
         customize_page_title(patient_id)
       end
@@ -113,7 +110,6 @@ ActiveAdmin.register Appointment do
     def update
       super do
         date = resource.date
-        @formatted_date = date.to_date.strftime('%A, %B %-d')
         patient_id = resource.patient_id
         customize_page_title(patient_id)
         patient_agnostic = params['appointment']['patient_agnostic']

@@ -204,4 +204,3 @@ $(document).ready ->
     if patient_id
       # prepopulate patient_id field
       $('#appointment_patient_id').val(patient_id).trigger('change')
-      # $('option[value=' + patient_id + ']', '#appointment_patient_id').attr('selected', true)
