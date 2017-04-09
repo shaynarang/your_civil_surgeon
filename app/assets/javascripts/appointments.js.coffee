@@ -34,6 +34,7 @@ $(document).ready ->
                 right: 'month,listWeek,listDay'
               }
       events: '/appointments.json'
+      contentHeight: 'auto'
       loading: (bool) ->
         if bool
           console.log('Loading calendar...')
