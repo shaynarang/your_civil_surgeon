@@ -26,6 +26,9 @@ gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'select2-rails'
 gem 'bootstrap-popover-rails'
+gem 'bourbon'
+gem 'neat', '~> 1.8'
+gem 'slim'
 
 group :development, :test do
   gem 'byebug', platform: :mri
