@@ -6,10 +6,12 @@ body {
   font-family: 'Open Sans', sans-serif;
   @include outer-container;
   color: white;
-  letter-spacing: 0.3em;
-  margin: 0;
-  max-width: 100%;
+  letter-spacing: 0.25em;
   background: black;
+}
+
+#content {
+  margin-top: 2.5%;
 }
 
 .section {
@@ -18,34 +20,50 @@ body {
   @include span-columns(12);
   background-image: url('omi_background.png');
   background-attachment: fixed;
-  background-size: contain;
   background-repeat: no-repeat;
-
-  @include media($medium-screen){
-    background-size: contain;
-  }
+  background-size: cover;
+  background-position: center center;
 
   @include media($large-screen){
-    background-size: cover;
+    background-position: initial;
   }
 
   .panel {
     @include span-columns(12 of 12);
-    margin: 15% 0;
-    background-color:rgba(0, 0, 0, 0.7);
+    background-color:rgba(0, 0, 0, 0.8);
+
 
     #heading_container {
       text-align: center;
       #heading {
-        text-transform: uppercase;
-        font-size: 250%;
+        margin-top: 3%;
+        font-size: 120%;
+        font-weight: bold;
+
+        @include media($medium-screen){
+          font-size: 220%;
+        }
+
+        @include media($large-screen){
+          font-size: 250%;
+        }
       }
       #sub_heading {
-        font-size: 180%;
+        margin-top: 5%;
+        font-size: 100%;
+
+        @include media($medium-screen){
+          font-size: 150%;
+        }
+
+        @include media($large-screen){
+          font-size: 180%;
+        }
       }
     }
 
     #contact {
+      margin-top: 5%;
       p {
         line-height: 2.0em;
         text-align: center;
@@ -68,19 +86,44 @@ body {
 
 .section#top, .section#middle {
   .panel {
-    padding: 2% 20%;
     line-height: 2em;
+    padding: 0 2%;
+
+    @include media($medium-screen){
+      margin: 15% 0;
+      padding: 2% 20%;
+    }
 
     @include media($large-screen){
       border-top: 1px solid white;
       border-bottom: 1px solid white;
+      margin: 15% 0;
+      padding: 2% 20%;
+    }
+  }
+}
+
+.section#bottom {
+  .panel {
+    @include media($medium-screen){
+      margin-top: 15%;
+    }
+    @include media($large-screen){
+      margin-top: 15%;
     }
   }
 }
 
 #map {
-
   iframe {
+    height: 400px;
     pointer-events: none;
+
+    @include media($medium-screen){
+      height: 700px;
+    }
+    @include media($large-screen){
+      height: 700px;
+    }
   }
 }
