@@ -1,0 +1,86 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  @include outer-container;
+  color: white;
+  letter-spacing: 0.3em;
+  margin: 0;
+  max-width: 100%;
+  background: black;
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+  @include span-columns(12);
+  background-image: url('omi_background.png');
+  background-attachment: fixed;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  @include media($medium-screen){
+    background-size: contain;
+  }
+
+  @include media($large-screen){
+    background-size: cover;
+  }
+
+  .panel {
+    @include span-columns(12 of 12);
+    margin: 15% 0;
+    background-color:rgba(0, 0, 0, 0.7);
+
+    #heading_container {
+      text-align: center;
+      #heading {
+        text-transform: uppercase;
+        font-size: 250%;
+      }
+      #sub_heading {
+        font-size: 180%;
+      }
+    }
+
+    #contact {
+      p {
+        line-height: 2.0em;
+        text-align: center;
+
+        @include media($medium-screen){
+          @include span-columns(12 of 12);
+        }
+
+        @include media($large-screen){
+          @include span-columns(6 of 12);
+        }
+      }
+    }
+
+    #information {
+      @include span-columns(12 of 12);
+    }
+  }
+}
+
+.section#top, .section#middle {
+  .panel {
+    padding: 2% 20%;
+    line-height: 2em;
+
+    @include media($large-screen){
+      border-top: 1px solid white;
+      border-bottom: 1px solid white;
+    }
+  }
+}
+
+#map {
+
+  iframe {
+    pointer-events: none;
+  }
+}
