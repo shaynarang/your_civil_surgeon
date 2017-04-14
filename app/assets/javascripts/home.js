@@ -6,4 +6,6 @@ $(document).ready(function() {
   $( "#map" ).mouseleave(function() {
     $('#map iframe').css("pointer-events", "none"); 
   });
+
+  $('.section').fadeIn('slow')
 });  
