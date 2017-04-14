@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'admin/patients#index'
+  root 'home#index'
 
   devise_for :admins, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
