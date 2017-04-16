@@ -13,123 +13,180 @@ body {
 }
 
 #content {
-  margin-top: 2.8%;
-}
+  margin-top: -1%;
+  .section {
+    @include span-columns(12);
 
-.section {
-  width: 100%;
-  height: 100%;
-  @include span-columns(12);
-  background-image: url('omi_background.png');
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-
-  @include media($large-screen){
-    background-position: initial;
-  }
-
-  .panel {
-    @include span-columns(12 of 12);
-    background-color:rgba(0, 0, 0, 0.8);
-
-
-    #heading_container {
-      text-align: center;
-      #heading {
-        margin-top: 3%;
-        font-size: 120%;
-        font-weight: bold;
-
-        @include media($medium-screen){
-          font-size: 220%;
-        }
-
-        @include media($large-screen){
-          font-size: 250%;
-        }
-      }
-      #sub_heading {
-        margin-top: 5%;
-        font-size: 100%;
-
-        @include media($medium-screen){
-          font-size: 150%;
-        }
-
-        @include media($large-screen){
-          font-size: 180%;
-        }
-      }
-    }
-
-    #contact {
-      margin-top: 3%;
-      p {
-        line-height: 2.0em;
-        text-align: center;
-
-        @include media($medium-screen){
-          @include span-columns(12 of 12);
-        }
-
-        @include media($large-screen){
-          @include span-columns(6 of 12);
-        }
-      }
-    }
-
-    #information {
+    .panel {
       @include span-columns(12 of 12);
     }
   }
 }
 
-.section#top, .section#middle {
-  .panel {
-    line-height: 2em;
-    padding: 0 2%;
+.section#hero {
+  background-color:rgba(0, 0, 0, 0.3);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: initial;
+
+  @include media($medium-screen){
+    background-size: cover;
+    background-position: center center;
+    background-image: url('omi_background.png');
+  }
+
+  @include media($large-screen){
+    background-size: contain;
+    background-position: center center;
+    background-image: url('omi_background.png');
+  }
+
+  #hero_content {
+    @include span-columns(12 of 12);
+    background-color:rgba(0, 0, 0, 0.3);
+    margin: 0;
 
     @include media($medium-screen){
-      margin: 15% 0;
-      padding: 2% 20%;
+      @include span-columns(5 of 12);
+      margin: 0;
     }
 
     @include media($large-screen){
-      margin: 15% 0;
-      padding: 2% 20%;
+      @include span-columns(5 of 12);
     }
   }
 }
 
-.section#bottom {
-  .panel {
+#mobile_image img {
+  margin-top: -2%;
+  margin-bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  @include media($medium-screen){
+    display: none;
+  }
+
+  @include media($large-screen){
+    display: none;
+  }
+}
+
+#heading_container {
+  text-align: center;
+  margin: 0;
+  background-color:rgba(0, 0, 0, 0.3);
+  padding: 5%;
+
+  @include media($medium-screen){
+    margin: 35% 0 100% 0;
+  }
+
+  @include media($large-screen){
+    margin: 35% 0 100% 0;
+  }
+
+  #heading {
+    font-size: 125%;
+    padding: 0;
+
     @include media($medium-screen){
-      margin-top: 15%;
+      font-size: 200%;
+      padding: 5% 0;
     }
+
     @include media($large-screen){
-      margin-top: 15%;
+      font-size: 225%;
+      padding: 5% 0;
+    }
+  }
+  #sub_heading {
+    margin-top: 5%;
+    font-size: 100%;
+
+    @include media($medium-screen){
+      font-size: 125%;
+    }
+
+    @include media($large-screen){
+      font-size: 160%;
+    }
+  }
+}
+
+#contact {
+  #contact_content {
+    p {
+      line-height: 2.0em;
+      text-align: center;
+
+      @include media($medium-screen){
+        @include span-columns(12 of 12);
+      }
+
+      @include media($large-screen){
+        @include span-columns(6 of 12);
+      }
+    }
+  }
+}
+
+#information {
+  background: white;
+
+  #information_content {
+    color: black;
+    @include span-columns(12 of 12);
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+.section#contact, .section#information {
+  .panel {
+    line-height: 2em;
+    padding: 5%;
+
+    @include media($medium-screen){
+      padding: 2% 20%;
+    }
+
+    @include media($large-screen){
+      padding: 2% 20%;
     }
   }
 }
 
 #map {
-  iframe {
-    height: 500px;
-    pointer-events: none;
-
-    @include media($medium-screen){
-      height: 700px;
-    }
-    @include media($large-screen){
-      height: 700px;
+  #map_content {
+    iframe {
+      height: 450px;
+      pointer-events: none;
     }
   }
 }
 
-a {
-  color: white;
+nav {
+  ul {
+    padding: 0;
+    li {
+      width: calc(100% / 3);
+      display: inline-block;
+      text-align: center;
+      a {
+        color: white;
+      }
+    }
+  }
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
 }
 
 .section {
