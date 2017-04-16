@@ -103,7 +103,8 @@ body {
     }
   }
   #sub_heading {
-    margin-top: 5%;
+    color: rgb(102,77,63);
+    margin-top: 9%;
     font-size: 100%;
 
     @include media($medium-screen){
