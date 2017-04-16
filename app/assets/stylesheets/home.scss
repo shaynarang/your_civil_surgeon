@@ -82,12 +82,12 @@ body {
 
   @include media($medium-screen){
     margin: 35% 0 100% 0;
-    padding: 15% 0;
+    padding: 10% 0;
   }
 
   @include media($large-screen){
     margin: 35% 0 100% 0;
-    padding: 15% 0;
+    padding: 10% 0;
   }
 
   #heading {
