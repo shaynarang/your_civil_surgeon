@@ -1,12 +1,37 @@
 #content
-  .section#top
+  #mobile_image
+    = image_tag 'omi_background.png'
+  .section#hero
+    #hero_content
+      / nav
+        ul
+          li
+            = link_to 'javascript:void', :class => 'nav_link', :data => { :section => 'information' } do
+              i.material-icons.md-48 info
+          li
+            = link_to 'javascript:void', :class => 'nav_link', :data => { :section => 'contact' } do
+              i.material-icons.md-48 contact_phone
+          li
+            = link_to 'javascript:void', :class => 'nav_link', :data => { :section => 'map' } do
+              i.material-icons.md-48 directions
+      .panel
+        #heading_container
+          #heading
+            | Omprakash V. Narang, M.D.
+          #sub_heading
+            | Civil Surgeon LLC
+
+  .section#information
     .panel
-      #heading_container
-        #heading
-          | Omprakash V. Narang, M.D.
-        #sub_heading
-          | Civil Surgeon LLC
-      #contact
+      #information_content
+        p
+          | Civil Surgeon LLC was created exclusively to serve the applicants to USCIS for adjustment of status. Generally, all applicants filing for adjustment of status to that of a lawful permanent resident must submit Form I-693 completed by a designated civil surgeon. Form I-693 is used to report results of a medical examination to USCIS. The examination is required to establish that an applicant is not inadmissible to the United States on public health grounds.
+
+        = link_to 'More Information', 'https://www.uscis.gov/green-card/green-card-processes-and-procedures/adjustment-status', :target => '_blank'
+
+  .section#contact
+    .panel
+      #contact_content
         p
           |  2727 Enterprise Pkwy
           br
@@ -18,15 +43,7 @@
           br
           |  Fax: (804)918-1136
 
-  .section#middle
+  .section#map
     .panel
-      #information
-        p
-          | Civil Surgeon LLC was created exclusively to serve the applicants to USCIS for adjustment of status. Generally, all applicants filing for adjustment of status to that of a lawful permanent resident must submit Form I-693 completed by a designated civil surgeon. Form I-693 is used to report results of a medical examination to USCIS. The examination is required to establish that an applicant is not inadmissible to the United States on public health grounds.
-
-        = link_to 'More Information', 'https://www.uscis.gov/green-card/green-card-processes-and-procedures/adjustment-status', :target => '_blank'
-
-  .section#bottom
-    .panel
-      #map
+      #map_content
         iframe allowfullscreen="" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=2727%20Enterprise%20Pkwy,Henrico,VA%20232394" style="border:0" width="100%"
