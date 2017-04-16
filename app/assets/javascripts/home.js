@@ -7,5 +7,13 @@ $(document).ready(function() {
     $('#map iframe').css("pointer-events", "none"); 
   });
 
-  $('.section').fadeIn('slow')
+  $('.section').fadeIn('slow');
+
+  // $('.nav_link').on('click', function() {
+  //   var section = $(this).data('section');
+  //   element = $('.section' + '#' + section)
+  //   $('html, body').animate({
+  //     scrollTop: element.offset().top
+  //   }, 2000);
+  // });
 });  
