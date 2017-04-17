@@ -91,8 +91,9 @@ body {
   }
 
   #heading {
-    font-size: 125%;
+    font-size: 115%;
     padding: 0;
+    text-transform: uppercase;
 
     @include media($medium-screen){
       font-size: 200%;
@@ -103,17 +104,17 @@ body {
     }
   }
   #sub_heading {
-    color: rgb(102,77,63);
     font-size: 100%;
     margin-top: 5%;
+    color: rgb(178, 135, 110);
 
     @include media($medium-screen){
-      margin-top: 9%;
+      margin-top: 7%;
       font-size: 125%;
     }
 
     @include media($large-screen){
-      margin-top: 9%;
+      margin-top: 7%;
       font-size: 145%;
     }
   }
@@ -146,7 +147,6 @@ body {
 
   a {
     color: black;
-    text-decoration: none;
   }
 }
 
