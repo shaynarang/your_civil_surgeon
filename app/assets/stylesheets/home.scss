@@ -192,6 +192,10 @@ nav {
   font-size: 48px;
 }
 
+a[x-apple-data-detectors] {
+  color: inherit !important;
+}
+
 .section {
   display: none;
 }
