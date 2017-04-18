@@ -141,6 +141,7 @@ body {
   background: rgb(234,234,234);
 
   #information_content {
+    text-align: center;
     color: black;
     @include span-columns(12 of 12);
   }
@@ -153,14 +154,14 @@ body {
 .section#contact, .section#information {
   .panel {
     line-height: 2em;
-    padding: 5%;
+    padding: 5% 4%;
 
     @include media($medium-screen){
-      padding: 2% 20%;
+      padding: 1.5% 15% 3.5% 15%;
     }
 
     @include media($large-screen){
-      padding: 2% 20%;
+      padding: 1.5% 20% 2.75% 20%;
     }
   }
 }
