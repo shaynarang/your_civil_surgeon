@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>YourCivilSurgeon</title>
+    <title>Your Civil Surgeon</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'https://fonts.googleapis.com/icon?family=Material+Icons' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name='author' content='Dr. Omprakash V. Narang' />
+    <meta name='description' content='Civil Surgeon LLC was created exclusively to serve the immigrant community. Per United States Citizenship and Immigration Services (USCIS), most applicants filing for immigrant status must submit an I-693 form. This form must be completed by a designated civil surgeon. Dr. Omprakash V. Narang is a designated civil surgeon practicing out of Richmond, Virginia.' />
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
   </head>
-
 
   <body>
     <% unless request.url == root_url %>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <p class='notice'><%= notice %></p>
+      <p class='alert'><%= alert %></p>
     <% end %>
     <%= yield %>
   </body>
