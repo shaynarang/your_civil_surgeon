@@ -49,7 +49,10 @@ ActiveAdmin.register MedicalRecord do
       f.input :scan, :label => 'Upload Scan', :hint => (image_tag(f.object.scan.url(:thumb)) if f.object.scan && !f.object.scan.url.blank?)
       f.input :_destroy_scan, as: :boolean, required: :false, label: 'Remove scan'
     end
-    f.actions
+    f.actions do
+      f.action(:submit)
+      f.cancel_link(:back)
+    end
   end
 
   show do
