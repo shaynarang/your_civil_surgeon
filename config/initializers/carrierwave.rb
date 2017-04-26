@@ -16,6 +16,12 @@ if Rails.env.production?
       :region                => 'us-west-2'
     }
 
+    # ensure newly uploaded assets are created with restricted access
+    config.fog_public = false
+
+    # use ssl
+    config.fog_use_ssl_for_aws = true
+
     # to let CarrierWave work on heroku
     config.cache_dir = "#{Rails.root}/public/uploads"
 
