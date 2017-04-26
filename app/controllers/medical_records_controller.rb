@@ -7,7 +7,7 @@ class MedicalRecordsController < ApplicationController
     date_of_service = medical_record.date_of_service
     kind = medical_record.kind.downcase
     filename = "#{patient_id}_#{date_of_service}_#{kind}"
-    send_file(scan.file.path,
+    send_file(scan.url,
           :filename => filename,
           :type => scan.file.content_type,
           :disposition => 'attachment',
