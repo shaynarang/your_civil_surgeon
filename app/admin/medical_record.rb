@@ -12,7 +12,13 @@ ActiveAdmin.register MedicalRecord do
   end
 
   action_item :only => [:show] do
-    link_to 'Edit Medical Record', edit_admin_medical_record_path(resource)
+    link_to 'Edit', edit_admin_medical_record_path(resource)
+  end
+
+  action_item :only => [:edit, :show] do
+    if medical_record.scan && !medical_record.scan.url.blank?
+      link_to 'Download', download_medical_record_path(resource)
+    end
   end
 
   action_item :only => [:edit, :show] do
