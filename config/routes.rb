@@ -7,4 +7,8 @@ Rails.application.routes.draw do
   resources :appointments, only: [:index, :update], defaults: { format: 'json' } do
     get 'cancel', :on => :member
   end
+
+  resources :medical_records do
+    get 'download', :on => :member
+  end
 end
