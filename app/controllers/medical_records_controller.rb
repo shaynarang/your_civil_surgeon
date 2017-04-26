@@ -3,7 +3,7 @@ class MedicalRecordsController < ApplicationController
     medical_record = MedicalRecord.find(params[:id])
     scan = medical_record.scan
     return unless scan && scan.try(:file).exists?
-    send_file(scan.file.path,
+    send_file(scan.file.url,
           :filename => scan.path.split('/').last,
           :type => scan.file.content_type,
           :disposition => 'attachment',
