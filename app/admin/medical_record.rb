@@ -99,7 +99,7 @@ ActiveAdmin.register MedicalRecord do
           patient_name = "#{patient.first_name} #{patient.last_name}"
           patient_dob = patient.date_of_birth
           link = "<b><a href='/admin/patients/#{patient.id}'>#{patient.name}</a></b>"
-          text = "Medical Records for...</br>#{link}</br>DOB: #{patient_dob}"
+          text = "Medical Records for...</br>#{link}</br>DOB: #{patient_dob} (#{patient.age} years old)"
           @page_title = text.html_safe
         end
       end
@@ -145,7 +145,7 @@ ActiveAdmin.register MedicalRecord do
       patient = Patient.find(patient_id)
       patient_dob = patient.date_of_birth
       link = "<b><a href='/admin/patients/#{patient.id}'>#{patient.name}</a></b>"
-      title = "Medical Record Details for...</br>#{link}</br>DOB: #{patient_dob}"
+      title = "Medical Record Details for...</br>#{link}</br>DOB: #{patient_dob} (#{patient.age} years old)"
       @page_title = title.html_safe
     end
   end
