@@ -32,13 +32,32 @@ class ScanUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   version :thumb do
+    if :pdf?
+      process :convert => 'png'
+      def full_filename (for_file = model.artifact.file)
+        super.chomp(File.extname(super)) + '.png'
+      end
+    end
     process :resize_to_fit => [100, 100]
+  end
+
+  version :full do
+    return unless :pdf?
+    process :convert => 'png'
+    def full_filename (for_file = model.artifact.file)
+      super.chomp(File.extname(super)) + '.png'
+    end
+    process :resize_to_fit => [1366, 768]
+  end
+
+  def pdf?(new_file)
+    new_file.content_type.include? '/pdf'
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    %w(jpg jpeg jpg_large gif png)
+    %w(jpg jpeg jpg_large gif png pdf)
   end
 
   # Override the filename of the uploaded files:
