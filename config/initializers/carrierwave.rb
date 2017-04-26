@@ -23,7 +23,7 @@ if Rails.env.production?
     config.fog_use_ssl_for_aws = true
 
     # to let CarrierWave work on heroku
-    config.cache_dir = "#{Rails.root}/public/uploads"
+    config.cache_dir = "#{Rails.root}/tmp/uploads"
 
     config.fog_directory = ENV['S3_BUCKET_NAME']
   end
