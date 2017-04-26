@@ -22,6 +22,9 @@ if Rails.env.production?
     # use ssl
     config.fog_use_ssl_for_aws = true
 
+    # expire url after two minutes
+    config.fog_authenticated_url_expiration = 120
+
     # to let CarrierWave work on heroku
     config.cache_dir = "#{Rails.root}/tmp/uploads"
 
