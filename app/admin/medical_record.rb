@@ -71,7 +71,13 @@ ActiveAdmin.register MedicalRecord do
         row :date_of_service
         row :kind
         row :scan do
-          image_tag(medical_record.scan.url) if medical_record.scan && !medical_record.scan.url.blank?
+          scan = medical_record.scan
+          if scan && !scan.url.blank?
+            full_version = scan.content_type.include?('/pdf') ? scan.url(:full) : scan.url
+            link_to scan.url, :target => '_blank' do
+              image_tag(full_version)
+            end
+          end
         end
       end
     end
