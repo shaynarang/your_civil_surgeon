@@ -99,6 +99,17 @@ $(document).ready ->
         else
           window.location.href = link
 
+    directToNewUnavailableBlock = ->
+      # direct user to new unavailable block upon calendar day click
+      $(document).on 'click', '.fc-day-top', ->
+
+        start_date = $(this).data('date')
+        start_date_query = '?start_date=' + start_date
+
+        link = '/admin/unavailable_blocks/new' + start_date_query
+
+        window.location.href = link
+
     setUpCalendar = ->
       if search_params.has('patient_id')
         patient_id = search_params.get('patient_id')
@@ -110,6 +121,11 @@ $(document).ready ->
         $('td.fc-day-top').css('cursor', 'pointer')
         # direct user to new appointments upon calendar day click
         directToNewAppointment()
+      else if search_params.has('block_time')
+        # add cursor for block time selection
+        $('td.fc-day-top').css('cursor', 'pointer')
+        # direct user to new unavailable block upon calendar day click
+        directToNewUnavailableBlock()
       else
         $('body').addClass('patient_agnostic')
         $('body').removeClass('patient_specific')

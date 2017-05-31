@@ -194,6 +194,7 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   config.register_javascript 'appointments'
   config.register_javascript 'medical_records'
+  config.register_javascript 'unavailable_blocks'
 
   # == CSV options
   #
