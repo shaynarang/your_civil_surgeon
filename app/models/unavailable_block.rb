@@ -1,0 +1,2 @@
+class UnavailableBlock < ApplicationRecord
+end
