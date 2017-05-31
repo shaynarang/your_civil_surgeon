@@ -29,7 +29,7 @@
 
 @media only screen and (min-width: 1200px) {
   .title_bar {
-    position: fixed;
+
     z-index: 10;
 
     #page_title {
@@ -44,48 +44,6 @@
         text-transform: none;
         font-weight: normal;
       }
-    }
-  }
-
-  .patient_agnostic {
-    .flashes {
-      margin-top: 133px;
-    }
-  }
-
-  .patient_specific {
-    .flashes {
-      margin-top: 190px;
-    }
-  }
-
-  .admin_patients.index {
-    .flashes {
-      margin-top: 133px;
-    }
-  }
-
-  .admin_patients.new, .admin_patients.create {
-    .flashes {
-      margin-top: 117px;
-    }
-  }
-
-  .admin_medical_records.index {
-    .flashes {
-      margin-top: 177px;
-    }
-  }
-
-  .show {
-    .flashes {
-      margin-top: 190px;
-    }
-  }
-
-  .new, .create, .edit, .update {
-    .flashes {
-      margin-top: 175px;
     }
   }
 }
