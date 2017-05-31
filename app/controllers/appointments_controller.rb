@@ -4,9 +4,11 @@ class AppointmentsController < ApplicationController
     return redirect_to '/' unless current_admin
 
     if params[:date]
-      @appointments = Appointment.on_the_books.where(date: params[:date])
+      unavailable_blocks = UnavailableBlock.contains_date(params[:date])
+      appointments = Appointment.on_the_books.where(date: params[:date])
+      @appointments = unavailable_blocks + appointments
     else
-      @appointments = Appointment.on_the_books
+      @appointments = Appointment.on_the_books + UnavailableBlock.all
     end
 
     render :index
