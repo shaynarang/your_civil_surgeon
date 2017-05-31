@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531001038) do
+ActiveRecord::Schema.define(version: 20170531010248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,10 +86,10 @@ ActiveRecord::Schema.define(version: 20170531001038) do
   end
 
   create_table "unavailable_blocks", force: :cascade do |t|
-    t.date     "date_start"
-    t.date     "date_end"
-    t.time     "time_start"
-    t.time     "time_end"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.time     "start_time"
+    t.time     "end_time"
     t.text     "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
