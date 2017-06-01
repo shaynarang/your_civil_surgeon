@@ -52,15 +52,36 @@ ActiveAdmin.register UnavailableBlock do
     end
 
     def create
-      super do |format|
-        start_date = resource.start_date
-        end_date = resource.end_date
-        if resource.valid?
-          notice = 'Unavailable Block successfully created'
-          parameters = { date: resource.start_date }
-          return redirect_to_appointments(notice, parameters)
+      block = params[:unavailable_block]
+      start_date = block[:start_date]
+      end_date = block[:end_date]
+      days = (start_date..end_date).to_a
+
+      if days.count > 1
+        days.each_with_index do |day, index|
+          if index == 0
+            start_time = block[:start_time]
+            end_time = '04:30PM'
+          elsif index == (days.count - 1)
+            start_time = '09:00AM'
+            end_time = block[:end_time]
+          else
+            start_time = '09:00AM'
+            end_time = '04:30PM'
+          end
+          UnavailableBlock.create(
+            start_date: day,
+            end_date: day,
+            start_time: start_time,
+            end_time: end_time,
+            notes: block[:notes]
+          )
         end
       end
+
+      notice = 'Unavailable Block successfully created'
+      parameters = { date: start_date }
+      return redirect_to_appointments(notice, parameters)
     end
 
     def update
@@ -83,7 +104,6 @@ ActiveAdmin.register UnavailableBlock do
     end
 
     def redirect_to_appointments notice, parameters
-      return unless resource.valid?
       if parameters
         return redirect_to admin_appointments_path(parameters), notice: notice
       else
