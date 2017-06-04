@@ -68,13 +68,13 @@ ActiveAdmin.register UnavailableBlock do
         days.each_with_index do |day, index|
           if index == 0
             start_time = block[:start_time]
-            end_time = '04:30PM'
+            end_time = '04:15PM'
           elsif index == (days.count - 1)
             start_time = '09:00AM'
             end_time = block[:end_time]
           else
             start_time = '09:00AM'
-            end_time = '04:30PM'
+            end_time = '04:15PM'
           end
           UnavailableBlock.create(
             start_date: day,

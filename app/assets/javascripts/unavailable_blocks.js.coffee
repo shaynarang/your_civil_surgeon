@@ -24,7 +24,8 @@ $(document).ready ->
   # timepicker config
   $('.timepicker').timepicker
     minTime: '9:00am',
-    maxTime: '4:30pm'
+    maxTime: '4:15pm',
+    step: 15
 
   ####################################################################################
 

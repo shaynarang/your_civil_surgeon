@@ -160,6 +160,7 @@ $(document).ready ->
       $('.timepicker').timepicker
         minTime: '9:00am',
         maxTime: '4:00pm',
+        step: 15,
         disableTimeRanges:
           disable_ranges
 
