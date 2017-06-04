@@ -12,6 +12,11 @@ ActiveAdmin.register UnavailableBlock do
     link_to 'Remove Unavailable Block', admin_unavailable_block_path(unavailable_block), method: :delete, data: { confirm: confirmation_message }
   end
 
+  action_item :only => [:edit, :show] do
+    confirmation_message = 'Are you sure you would like to remove this series of unavailable blocks?'
+    link_to 'Remove All Unavailable Blocks in Series', admin_unavailable_block_path(unavailable_block, remove_series: true), method: :delete, data: { confirm: confirmation_message }
+  end
+
   index :download_links => false do
     column :start_date
     column :end_date
@@ -98,12 +103,17 @@ ActiveAdmin.register UnavailableBlock do
     end
 
     def destroy
-      date = resource.start_date
-      super do
-        notice = 'Unavailable Block successfully destroyed'
-        parameters = { date: date }
-        return redirect_to_appointments(notice, parameters)
+      start_date = resource.start_date
+
+      if params[:remove_series]
+        UnavailableBlock.where(series_identifier: resource.series_identifier).destroy_all
+      else
+        resource.destroy
       end
+
+      notice = 'Unavailable Block(s) successfully destroyed'
+      parameters = { date: start_date }
+      return redirect_to_appointments(notice, parameters)
     end
 
     def redirect_to_appointments notice, parameters
