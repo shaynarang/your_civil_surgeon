@@ -30,6 +30,13 @@ class UnavailableBlock < ApplicationRecord
     [start_time, end_time]
   end
 
+  def self.generate_series_identifer
+    begin
+      series_identifier = SecureRandom.hex
+    end while self.exists?(series_identifier: series_identifier)
+    series_identifier
+  end
+
   private
 
   def end_date_after_start_date?

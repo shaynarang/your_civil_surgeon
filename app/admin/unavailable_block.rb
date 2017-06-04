@@ -59,6 +59,7 @@ ActiveAdmin.register UnavailableBlock do
       days = (start_date..end_date).to_a
 
       if days.count > 1
+        series_identifier = UnavailableBlock.generate_series_identifer
         days.each_with_index do |day, index|
           if index == 0
             start_time = block[:start_time]
@@ -75,7 +76,8 @@ ActiveAdmin.register UnavailableBlock do
             end_date: day,
             start_time: start_time,
             end_time: end_time,
-            notes: block[:notes]
+            notes: block[:notes],
+            series_identifier: series_identifier
           )
         end
       end
