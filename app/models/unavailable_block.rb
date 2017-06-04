@@ -1,6 +1,6 @@
 class UnavailableBlock < ApplicationRecord
 
-  validates_presence_of :start_date, :end_date
+  validates_presence_of :start_date, :end_date, :start_time, :end_time
 
   validate :end_date_after_start_date?
 
