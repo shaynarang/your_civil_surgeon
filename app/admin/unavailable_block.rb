@@ -31,7 +31,8 @@ ActiveAdmin.register UnavailableBlock do
     f.inputs 'Unavailable Block Details' do
       f.input :start_date, :as => :datepicker
       f.input :start_time, :as => :string, :input_html => { :class => 'timepicker' }
-      f.input :end_date, :as => :datepicker
+      params[:action] == 'edit' || params[:action] == 'update' ? disabled = true : disabled = false
+      f.input :end_date, :as => :datepicker, :input_html => { :disabled => disabled }
       f.input :end_time, :as => :string, :input_html => { :class => 'timepicker' }
       f.input :notes
     end
