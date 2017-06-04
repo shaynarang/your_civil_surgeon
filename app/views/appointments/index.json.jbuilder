@@ -15,5 +15,6 @@ json.array!(@appointments) do |appointment|
     json.end appointment.end_date_time
     json.time_range appointment.time_range
     json.url edit_admin_unavailable_block_url(appointment)
+    json.color 'rgba(77, 82, 86, 0.65)'
   end
 end
