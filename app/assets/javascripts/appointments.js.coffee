@@ -153,9 +153,6 @@ $(document).ready ->
     timePick = (disable_ranges) ->
       disable_ranges = disable_ranges || []
 
-      # block off lunch hour
-      disable_ranges.push ['12:00pm', '1:00pm']
-
       # timepicker config
       $('.timepicker').timepicker
         minTime: '9:00am',
