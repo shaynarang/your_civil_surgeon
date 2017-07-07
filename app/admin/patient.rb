@@ -30,8 +30,8 @@ ActiveAdmin.register Patient do
     f.semantic_errors *f.object.errors.keys
     br
     f.inputs 'Patient Demographics' do
-      f.input :first_name
       f.input :last_name
+      f.input :first_name
       f.input :middle_name
       f.input :sex, :as => :select, :collection => ['Male', 'Female', 'Other', 'Unknown']
       f.input :date_of_birth, :as => :datepicker
@@ -70,8 +70,8 @@ ActiveAdmin.register Patient do
   show do
     panel 'Patient Demographics' do
       attributes_table_for patient do
-        row :first_name
         row :last_name
+        row :first_name
         row :middle_name
         row :sex
         row :date_of_birth
