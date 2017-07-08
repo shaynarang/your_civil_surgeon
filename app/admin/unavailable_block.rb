@@ -65,7 +65,7 @@ ActiveAdmin.register UnavailableBlock do
       elsif block[:end_date] < block[:start_date]
         alert = 'End date must be after start date'
         return redirect_back_with_alert(alert)
-      elsif block[:end_date] == block[:start_date] && block[:end_time] < block[:start_time]
+      elsif (block[:end_date] == block[:start_date]) && (block[:end_time].to_time < block[:start_time].to_time)
         alert = 'End time must be after start time'
         return redirect_back_with_alert(alert)
       end
