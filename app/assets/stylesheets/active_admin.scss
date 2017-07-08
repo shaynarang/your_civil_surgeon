@@ -161,3 +161,24 @@ a.view_link {
   -webkit-animation-timing-function:ease-in-out;
   -webkit-animation-direction: alternate;
 }
+
+.link_action {
+  text-align: center;
+  background-color: #7a7d80;
+  background-image: linear-gradient(to bottom, #7a7d80, #4d5256);
+  border-color: #3a3e41;
+  color: #ffffff;
+  border: 1px solid black;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  cursor: pointer;
+  height: 38px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+
+  a {
+    display: inline-block;
+    font-size: 14px;
+    padding: 9px 12px;
+    text-decoration: none;
+  }
+}
