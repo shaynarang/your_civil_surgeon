@@ -52,18 +52,27 @@ ActiveAdmin.register UnavailableBlock do
   end
 
   controller do
-    def new
-      start_date = params[:start_date]
-      super
-    end
-
     def create
       block = params[:unavailable_block]
-      start_date = block[:start_date]
-      end_date = block[:end_date]
-      days = (start_date..end_date).to_a
 
-      if days.count > 1
+      # reject empty block params
+      block.reject!{|_, v| v.blank?}
+
+      if block.length < 5
+        # require all block params
+        alert = 'Please complete all fields'
+        return redirect_back_with_alert(alert)
+      elsif block[:end_date] < block[:start_date]
+        alert = 'End date must be after start date'
+        return redirect_back_with_alert(alert)
+      elsif block[:end_date] == block[:start_date] && block[:end_time] < block[:start_time]
+        alert = 'End time must be after start time'
+        return redirect_back_with_alert(alert)
+      end
+
+      days = (block[:start_date]..block[:end_date]).to_a
+
+      if days.count >= 1
         series_identifier = UnavailableBlock.generate_series_identifer
         days.each_with_index do |day, index|
           if index == 0
@@ -88,7 +97,7 @@ ActiveAdmin.register UnavailableBlock do
       end
 
       notice = 'Unavailable Block successfully created'
-      parameters = { date: start_date }
+      parameters = { date: block[:start_date] }
       return redirect_to_appointments(notice, parameters)
     end
 
@@ -114,6 +123,13 @@ ActiveAdmin.register UnavailableBlock do
       notice = 'Unavailable Block(s) successfully destroyed'
       parameters = { date: start_date }
       return redirect_to_appointments(notice, parameters)
+    end
+
+    def redirect_back_with_alert alert
+      redirect_back(
+        fallback_location: admin_appointments_path,
+        alert: alert
+      )
     end
 
     def redirect_to_appointments notice, parameters
