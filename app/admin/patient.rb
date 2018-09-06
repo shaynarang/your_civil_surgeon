@@ -97,9 +97,9 @@ ActiveAdmin.register Patient do
 
     panel 'Patient Interpretation' do
       attributes_table_for patient do
-        row :interpreter_business_name
-        row :interpreter_first_name
         row :interpreter_last_name
+        row :interpreter_first_name
+        row :interpreter_business_name
         row :interpreter_email
         row :interpreter_phone
       end
