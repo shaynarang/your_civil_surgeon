@@ -35,8 +35,8 @@ ActiveAdmin.register Patient do
       f.input :middle_name
       f.input :sex, :as => :select, :collection => ['Male', 'Female', 'Other', 'Unknown']
       f.input :date_of_birth, :as => :datepicker
-      f.input :city_of_origin
-      f.input :country_of_origin
+      f.input :city_of_origin, :label => 'Place of Birth'
+      f.input :country_of_origin, :label => 'Country of Birth'
       f.input :alien_registration_number
       f.input :uscis_online_account_number
     end
@@ -48,8 +48,8 @@ ActiveAdmin.register Patient do
       f.input :state
       f.input :zip
       f.input :email
-      f.input :primary_phone
-      f.input :alternate_phone
+      f.input :primary_phone, :label => 'Home Phone'
+      f.input :alternate_phone, :label => 'Mobile Phone'
     end
 
     f.inputs 'Patient Interpretation' do
