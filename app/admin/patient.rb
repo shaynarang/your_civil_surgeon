@@ -75,8 +75,12 @@ ActiveAdmin.register Patient do
         row :middle_name
         row :sex
         row :date_of_birth
-        row :city_of_origin
-        row :country_of_origin
+        row 'Place of Birth' do
+          patient.city_of_origin
+        end
+        row 'Country of Birth' do
+          patient.country_of_origin
+        end
         row :alien_registration_number
         row :uscis_online_account_number
       end
@@ -90,8 +94,12 @@ ActiveAdmin.register Patient do
         row :state
         row :zip
         row :email
-        row :primary_phone
-        row :alternate_phone
+        row 'Home Phone' do
+          patient.primary_phone
+        end
+        row 'Mobile Phone' do
+          patient.alternate_phone
+        end
       end
     end
 
