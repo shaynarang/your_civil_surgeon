@@ -5,10 +5,10 @@ class AppointmentsController < ApplicationController
 
     if params[:date]
       unavailable_blocks = UnavailableBlock.contains_date(params[:date])
-      appointments = Appointment.on_the_books.where(date: params[:date])
+      appointments = Appointment.on_the_books.includes(:patient).where(date: params[:date])
       @appointments = unavailable_blocks + appointments
     else
-      @appointments = Appointment.on_the_books + UnavailableBlock.all
+      @appointments = Appointment.on_the_books.includes(:patient) + UnavailableBlock.all
     end
 
     render :index
