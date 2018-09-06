@@ -53,9 +53,9 @@ ActiveAdmin.register Patient do
     end
 
     f.inputs 'Patient Interpretation' do
-      f.input :interpreter_business_name
-      f.input :interpreter_first_name
       f.input :interpreter_last_name
+      f.input :interpreter_first_name
+      f.input :interpreter_business_name
       f.input :interpreter_email
       f.input :interpreter_phone
     end
