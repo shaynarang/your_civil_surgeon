@@ -11,7 +11,7 @@ $ ->
   $('.datepicker').datepicker
     changeYear: true
     changeMonth: true
-    yearRange: "1900:(new Date).getFullYear()"
+    yearRange: "1900:" + ((new Date).getFullYear() + 2)
     dateFormat: 'yy-mm-dd'
 
   # index table row redirect to show
