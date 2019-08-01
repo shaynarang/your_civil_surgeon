@@ -58,42 +58,26 @@ ActiveAdmin.register UnavailableBlock do
       # reject empty block params
       block.reject!{|_, v| v.blank?}
 
-      if block.length < 5
-        # require all block params
-        alert = 'Please complete all fields'
-        return redirect_back_with_alert(alert)
-      elsif block[:end_date] < block[:start_date]
-        alert = 'End date must be after start date'
-        return redirect_back_with_alert(alert)
-      elsif (block[:end_date] == block[:start_date]) && (block[:end_time].to_time < block[:start_time].to_time)
-        alert = 'End time must be after start time'
-        return redirect_back_with_alert(alert)
-      end
+      alert =
+        if block.length < 5
+          # require all block params
+          'Please complete all fields'
+        elsif block[:end_date] < block[:start_date]
+          'End date must be after start date'
+        elsif (block[:end_date] == block[:start_date]) && (block[:end_time].to_time < block[:start_time].to_time)
+          'End time must be after start time'
+        end
+
+      return redirect_back_with_alert(alert) if alert
 
       days = (block[:start_date]..block[:end_date]).to_a
 
-      if days.count >= 1
-        series_identifier = UnavailableBlock.generate_series_identifer
-        days.each_with_index do |day, index|
-          if index == 0
-            start_time = block[:start_time]
-            end_time = '04:15PM'
-          elsif index == (days.count - 1)
-            start_time = '09:00AM'
-            end_time = block[:end_time]
-          else
-            start_time = '09:00AM'
-            end_time = '04:15PM'
-          end
-          UnavailableBlock.create(
-            start_date: day,
-            end_date: day,
-            start_time: start_time,
-            end_time: end_time,
-            notes: block[:notes],
-            series_identifier: series_identifier
-          )
-        end
+      series_identifier = UnavailableBlock.generate_series_identifer
+
+      if days.count > 1
+        create_multi_day_block(series_identifier, days, block)
+      else
+        create_single_day_block(series_identifier, days, block)
       end
 
       notice = 'Unavailable Block successfully created'
@@ -125,6 +109,8 @@ ActiveAdmin.register UnavailableBlock do
       return redirect_to_appointments(notice, parameters)
     end
 
+    private
+
     def redirect_back_with_alert alert
       redirect_back(
         fallback_location: admin_appointments_path,
@@ -138,6 +124,46 @@ ActiveAdmin.register UnavailableBlock do
       else
         return redirect_to admin_appointments_path, notice: notice
       end
+    end
+
+    def create_multi_day_block series_identifier, days, block
+      days.each_with_index do |day, index|
+        # first day in the multi-day block
+        if index == 0
+          start_time = block[:start_time]
+          end_time = '04:15PM'
+        # last day in the multi-day block
+        elsif index == (days.count - 1)
+          start_time = '09:00AM'
+          end_time = block[:end_time]
+        # middle day in the multi-day block
+        else
+          start_time = '09:00AM'
+          end_time = '04:15PM'
+        end
+        UnavailableBlock.create(
+          start_date: day,
+          end_date: day,
+          start_time: start_time,
+          end_time: end_time,
+          notes: block[:notes],
+          series_identifier: series_identifier
+        )
+      end
+    end
+
+    def create_single_day_block series_identifier, days, block
+      day = days[0]
+      start_time = block[:start_time]
+      end_time = block[:end_time]
+      UnavailableBlock.create(
+        start_date: day,
+        end_date: day,
+        start_time: start_time,
+        end_time: end_time,
+        notes: block[:notes],
+        series_identifier: series_identifier
+      )
     end
   end
 end
