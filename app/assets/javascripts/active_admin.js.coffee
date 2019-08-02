@@ -14,6 +14,12 @@ $ ->
     yearRange: "1900:" + ((new Date).getFullYear() + 2)
     dateFormat: 'yy-mm-dd'
 
+  # disable autocomplete from covering datepicker fields
+  $('.datepicker').on 'focus', (e) ->
+    e.preventDefault()
+    $(this).attr 'autocomplete', 'off'
+    return
+
   # index table row redirect to show
   $('tr.odd > td:not(:last-of-type), tr.even > td:not(:last-of-type)').click ->
     link = $(this).parent().find('td.col-actions a.view_link').prop('href')
