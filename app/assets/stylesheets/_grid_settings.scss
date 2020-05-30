@@ -2,13 +2,13 @@
 
 // Neat Overrides
 // $column: 90px;
-$gutter: 0em;
+$gutter: 0px;
 // $grid-columns: 12;
-$max-width: em(986);
+$max-width: 986px;
 
 // Neat Breakpoints
-$medium-screen: em(668);
-$large-screen: em(860);
+$medium-screen: 668px;
+$large-screen: 860px;
 
 $medium-screen-up: new-breakpoint(min-width $medium-screen 4);
 $large-screen-up: new-breakpoint(min-width $large-screen 8);
