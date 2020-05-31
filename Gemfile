@@ -30,6 +30,7 @@ gem 'bourbon'
 gem 'neat', '~> 1.8'
 gem 'slim'
 gem 'loofah', '>= 2.2.3'
+gem 'bootsnap', require: false
 
 group :development, :test do
   gem 'byebug', platform: :mri
