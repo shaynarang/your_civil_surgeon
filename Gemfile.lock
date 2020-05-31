@@ -117,11 +117,11 @@ GEM
       activesupport (>= 4.1)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    inherited_resources (1.7.2)
-      actionpack (>= 3.2, < 5.2.x)
+    inherited_resources (1.11.0)
+      actionpack (>= 5.0, < 6.1)
       has_scope (~> 0.6)
-      railties (>= 3.2, < 5.2.x)
-      responders
+      railties (>= 5.0, < 6.1)
+      responders (>= 2, < 4)
     ipaddress (0.8.3)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
@@ -276,7 +276,7 @@ DEPENDENCIES
   fog-aws
   formadmin
   fullcalendar-rails
-  inherited_resources (~> 1.7.2)
+  inherited_resources
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
