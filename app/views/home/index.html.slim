@@ -29,6 +29,24 @@
 
         = link_to 'Adjustment of Immigration Status', 'https://www.uscis.gov/green-card/green-card-processes-and-procedures/adjustment-status', :target => '_blank'
 
+        p
+          | Registration form downloads:
+        p
+          | Applicant
+          | &nbsp;
+          | (
+          = link_to 'PDF', '/applicant.pdf', download: 'applicant.pdf'
+          | &nbsp;
+          = link_to 'DOCX', '/applicant.docx'
+          | )
+        p
+          | Interpreter
+          | &nbsp;
+          | (
+          = link_to 'PDF', '/interpreter.pdf', download: 'interpreter.pdf'
+          | &nbsp;
+          = link_to 'DOCX', '/interpreter.docx'
+          | )
   .section#contact
     .panel
       #contact_content
