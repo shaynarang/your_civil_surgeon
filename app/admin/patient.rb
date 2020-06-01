@@ -9,10 +9,6 @@ ActiveAdmin.register Patient do
   filter 'primary_phone_or_alternate_phone_cont', :label => 'Phone', :as => :string
 
   action_item :only => [:edit, :show] do
-    link_to 'Medical Records', admin_medical_records_path(patient_id: patient.id)
-  end
-
-  action_item :only => [:edit, :show] do
     link_to 'Make Appointment', admin_appointments_path(patient_id: patient.id)
   end
 
