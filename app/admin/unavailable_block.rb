@@ -53,7 +53,7 @@ ActiveAdmin.register UnavailableBlock do
 
   controller do
     def create
-      block = params[:unavailable_block]
+      block = permitted_params[:unavailable_block].to_h
 
       # reject empty block params
       block.reject!{|_, v| v.blank?}
