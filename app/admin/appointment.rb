@@ -78,8 +78,10 @@ ActiveAdmin.register Appointment do
         patient = Patient.find(params[:patient_id])
         patient_name = "#{patient.first_name} #{patient.last_name}"
         patient_dob = patient.date_of_birth
-        link = "<b><a href='/admin/patients/#{patient.id}'>#{patient.name}</a></b>"
-        text = "<span class='blink'>Scheduling Appointment for...</span></br>#{link}</br>DOB: #{patient_dob} (#{patient.age} years old)"
+        link = "<b><a href='/admin/patients/#{patient.id}'>#{patient.id} - #{patient.name}</a></b>"
+        dob = "DOB: #{patient_dob} (#{patient.age} years old)"
+        phone = "Mobile: #{patient.alternate_phone}"
+        text = "<span class='blink'>Scheduling Appointment for...</span></br>#{link}</br>#{dob}</br>#{phone}"
         @page_title = text.html_safe
       elsif params[:block_time]
         text = "<span class='blink'>Blocking Time</span>"
