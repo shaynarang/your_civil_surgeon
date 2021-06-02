@@ -29,5 +29,7 @@ if Rails.env.production?
     config.cache_dir = "#{Rails.root}/tmp/uploads"
 
     config.fog_directory = ENV['S3_BUCKET_NAME']
+
+    config.provider = 'fog/aws'
   end
 end
