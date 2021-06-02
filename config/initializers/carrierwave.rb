@@ -30,6 +30,6 @@ if Rails.env.production?
 
     config.fog_directory = ENV['S3_BUCKET_NAME']
 
-    config.provider = 'fog/aws'
+    config.fog_provider = 'fog/aws'
   end
 end
