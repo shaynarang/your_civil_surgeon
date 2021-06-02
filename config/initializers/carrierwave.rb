@@ -1,6 +1,5 @@
 if Rails.env.production?
   CarrierWave.configure do |config|
-    config.storage = :fog
     config.fog_use_ssl_for_aws = true
     config.fog_directory = ENV['S3_BUCKET_NAME']
     config.fog_public = false
